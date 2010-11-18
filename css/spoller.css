@@ -1,0 +1,39 @@
+
+.km-spoller
+{
+    background-color:#cccccc;
+    padding:3px;
+    border:1px solid black;
+    color:#3e3e3e;
+}
+
+.km-spoller-inner
+{
+    background-color:white; 
+    border:1px solid black;
+    padding:5px;
+    display:none;
+}
+
+.km-spoller-btn
+{
+    background-color:white; 
+    border:1px solid black;
+    width:16px;
+    height:16px; 
+    padding:0px;
+    font-family:courier;
+    font-size:10pt;
+    font-weight:normal;
+    text-decoration:none;
+    text-align:center;
+    vertical-align:baseline;
+    cursor:pointer;
+}
+
+.km-spoller-title
+{
+    padding-left:20px;
+    font-weight:bold;
+}
+

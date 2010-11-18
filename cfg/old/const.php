@@ -1,0 +1,7 @@
+<?
+    KMconst::$_ = array(
+
+            '' => array(),
+        
+        );
+?>

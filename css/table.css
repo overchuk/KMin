@@ -1,0 +1,59 @@
+.km-table
+{
+    width:100%;
+}
+
+.km-table td
+{
+    border:1px solid black;
+    vertical-align:middle;
+}
+
+.km-table th a 
+{
+    text-decoration:none;
+}
+
+
+a span.km-table-order-0
+{
+    width:18px;
+    height:12px;
+    background:url('../icon/asc.png') no-repeat;
+}
+
+a:hover span.km-table-order-0
+{
+    width:18px;
+    height:12px;
+    background:url('../icon/desc.png') no-repeat;
+}
+
+a span.km-table-order-1
+{
+    width:18px;
+    height:12px;
+    background:url('../icon/desc.png') no-repeat;
+}
+
+a:hover span.km-table-order-1
+{
+    width:18px;
+    height:12px;
+    background:url('../icon/asc.png') no-repeat;
+}
+
+a span.km-table-order-2
+{
+    text-decoration:none;
+    width:18px;
+    height:12px;
+}
+
+a:hover span.km-table-order-2
+{
+    width:18px;
+    height:12px;
+    background:url('../icon/asc.png') no-repeat;
+}
+

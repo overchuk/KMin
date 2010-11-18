@@ -1,0 +1,6 @@
+
+- Fix : "call_time_pass_reference"
+- KMmsg::val use regexp with callback, to use LARGE arrays (for exampl, direct from DB table)
+- Property: image
+
+
