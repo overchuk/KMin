@@ -24,7 +24,10 @@ class KM_cell extends KM_
             $txt = '<a href="'.$u.'">'.$txt.'</a>';
         }
 
-        return $txt;
+		if($this->data['nobr'])
+			return "<nobr>$txt</nobr>";
+		else
+	        return $txt;
     }
 
 }
