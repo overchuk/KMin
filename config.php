@@ -2,56 +2,51 @@
 	setlocale(LC_ALL, "ru_RU.UTF8", "rus_RUS.UTF8");
     ini_set('allow_call_time_pass_reference', 'On');
 
-	define('DIR_ROOT', dirname(__FILE__));
+	function kmin_def($name, $value)
+	{
+		if(!defined($name))
+			define($name, $value);
+
+		return constant($name);
+	}
+
+	/* Where is KMin */
+	kmin_def('DIR_ROOT', dirname(__FILE__));
 
 	/* Site configuration */
-	if(!defined('WEB_SITE'))
-		define('WEB_SITE', '');
+	kmin_def('WEB_SITE', '');
+	kmin_def('DIR_SITE',       dirname(DIR_ROOT));
 
-	if(!defined('WEB_ROOT'))
-		define('WEB_ROOT', WEB_SITE.'/kmin');
+	/* Kmin configuration */
+	kmin_def('WEB_ROOT',       WEB_SITE.'/kmin');
+	kmin_def('WEB_ADMIN',      WEB_SITE.'/admin');
+	kmin_def('WEB_CSS',    WEB_ROOT.'/css' );
+	kmin_def('WEB_JS',     WEB_ROOT.'/js'  );
+	kmin_def('WEB_IMG',    WEB_ROOT.'/img' );
+	kmin_def('WEB_ICON',   WEB_ROOT.'/icon');
+	kmin_def('WEB_IMAGES', WEB_ROOT.'/images');
+	kmin_def('WEB_FILES',  WEB_ROOT.'/files');
 
-    if(!defined('DIR_SITE'))
-	    define('DIR_SITE', dirname(DIR_ROOT));
 
-	if(!defined('DIR_USER'))
-		define('DIR_USER', DIR_SITE.'/static');
+	kmin_def('DIR_USER',       DIR_ROOT .'/static');
+	kmin_def('DIR_BLOCKS',     DIR_ROOT .'/blocks');
+	kmin_def('DIR_MODULE',     DIR_ROOT .'/modules');
+	kmin_def('DIR_TEMPLATE',   DIR_ROOT . SL . 'tmpl/current');
+	kmin_def('DIR_NS',         DIR_ROOT . SL . 'ns');
+	kmin_def('DIR_CFG',        DIR_ROOT . SL . 'cfg');
+	kmin_def('DIR_CLASS',      DIR_ROOT . SL . 'cls');
+	kmin_def('DIR_TYPE',       DIR_ROOT . SL . 'type');
+	kmin_def('DIR_TASK',       DIR_ROOT . SL . 'task');
+	kmin_def('DIR_MSG',        DIR_ROOT . SL . 'msg');
+	kmin_def('DIR_ERROR',      DIR_ROOT . SL . 'err');
+	kmin_def('DIR_TASK',       DIR_ROOT . SL . 'task');
 
-	if(!defined('DIR_BLOCKS'))
-		define('DIR_BLOCKS', DIR_SITE.'/blocks');
-
-	if(!defined('DIR_MODULE'))
-		define('DIR_MODULE', DIR_SITE.'/modules');
-
-	if(!defined('WEB_ADMIN'))
-		define('WEB_ADMIN',  WEB_SITE.'/admin');
-
-	if(!defined('DIR_TEMPLATE'))
-		define('DIR_TEMPLATE',   DIR_ROOT . SL . 'tmpl/current');
-
-	/* Auto defined */
-	define ('HOST', $_SERVER['HTTP_HOST']);
 
 	/*  Platform depended */
-	define('SL', '/');
-	define('LF', "\n");
+	kmin_def('SL', '/');
+	kmin_def('LF', "\n");
+	kmin_def('HOST', $_SERVER['HTTP_HOST']);
 
-	define('WEB_CSS',    WEB_ROOT.'/css' );
-	define('WEB_JS',     WEB_ROOT.'/js'  );
-	define('WEB_IMG',    WEB_ROOT.'/img' );
-	define('WEB_ICON',   WEB_ROOT.'/icon');
-	define('WEB_IMAGES', WEB_ROOT.'/images');
-	define('WEB_FILES',  WEB_ROOT.'/files');
-
-
-	define('DIR_NS',         DIR_ROOT . SL . 'ns');
-	define('DIR_CFG',        DIR_ROOT . SL . 'cfg');
-	define('DIR_CLASS',      DIR_ROOT . SL . 'cls');
-	define('DIR_TYPE',       DIR_ROOT . SL . 'type');
-	define('DIR_TASK',       DIR_ROOT . SL . 'task');
-	define('DIR_MSG',        DIR_ROOT . SL . 'msg');
-	define('DIR_ERROR',      DIR_ROOT . SL . 'err');
-	define('DIR_TASK',       DIR_ROOT . SL . 'task');
 
     /* Initial functions */
 	function kmin_import($class)
@@ -59,7 +54,7 @@
 		$f = DIR_NS.SL.$class.'.php';
 		require_once($f);
 
-		$f = DIR_CFG.SL.$class.'.php';
+		$f = kmin_def('CFG_'.$class, DIR_CFG.SL.$class.'.php');
 		if(is_file($f))
 			include_once($f);
 	}
