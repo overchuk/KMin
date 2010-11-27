@@ -10,6 +10,12 @@
 		return constant($name);
 	}
 
+	/*  Platform depended */
+	kmin_def('SL', '/');
+	kmin_def('LF', "\n");
+	kmin_def('HOST', $_SERVER['HTTP_HOST']);
+
+
 	/* Where is KMin */
 	kmin_def('DIR_ROOT', dirname(__FILE__));
 
@@ -41,11 +47,6 @@
 	kmin_def('DIR_ERROR',      DIR_ROOT . SL . 'err');
 	kmin_def('DIR_TASK',       DIR_ROOT . SL . 'task');
 
-
-	/*  Platform depended */
-	kmin_def('SL', '/');
-	kmin_def('LF', "\n");
-	kmin_def('HOST', $_SERVER['HTTP_HOST']);
 
 
     /* Initial functions */
