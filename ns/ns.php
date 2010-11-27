@@ -3,10 +3,10 @@
     class KM 
     {
 
-	function ns($class)
+	function ns($class, $cfg = true)
 	{
 		if(!class_exists('KM'.$class))
-			kmin_import($class);
+			kmin_import($class, $cfg);
 	}
 
 	function type($class)

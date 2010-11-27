@@ -50,14 +50,17 @@
 
 
     /* Initial functions */
-	function kmin_import($class)
+	function kmin_import($class, $cfg = true)
 	{
 		$f = DIR_NS.SL.$class.'.php';
 		require_once($f);
 
-		$f = kmin_def('CFG_'.$class, DIR_CFG.SL.$class.'.php');
-		if(is_file($f))
-			include_once($f);
+		if($cfg)
+		{
+			$f = kmin_def('CFG_'.$class, DIR_CFG.SL.$class.'.php');
+			if(is_file($f))
+				include_once($f);
+		}
 	}
 
     // Include common namespace
