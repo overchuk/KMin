@@ -1,0 +1,39 @@
+Namespaces:
+
+db
+--/
+
+OVERVIEW:
+ Namespace KMdb
+ Working with mysql database (right now, mysql only)
+
+CONFIGURATION:
+
+	Mysql connect  and select_db parameters:
+
+	KMdb::$host
+	KMdb::$user
+	KMdb::$pass
+	KMdb::$base
+
+	Mysql table name prefix:
+
+	KMdb::$prefix
+
+
+INTERFACE:
+ 
+
+	val($string) - Escape string, to use in SQL query inside double quotes: ' WHERE `name`="'.KMdb::val($name).'" '
+
+ 	sql($query, $prefix="#__") - format query, by mysql syntax 
+
+	sql_* : Prepare sql requests for some operations
+
+
+
+
+...
+
+
+
