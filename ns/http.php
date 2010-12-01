@@ -32,13 +32,11 @@
         {
             if(!isset(self::$host))
             {
-                $s = strtolower( HOST );
+                $s = strtolower( $_SERVER['HTTP_HOST'] );
                 if(substr($s,0,4) == 'www.')
                     $s = substr($s,4);
-            
                 self::$host = $s;
             }
-
             return self::$host;
         }
 
