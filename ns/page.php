@@ -5,6 +5,202 @@ KM::ns('log');
 
 class KMpage
 {
+	// Cache of pages. Site row by id
+	static $_pages = array();
+
+	// Cache of sites. SiteId by host 
+	static $_sites = array();
+
+	// Cache of loaded path chain of pages
+	static $_path = array();
+
+	
+
+/*
+	XXX
+	Need to implement language mask
+*/
+	function where()
+	{
+		return "( TRUE )";
+	}
+
+/*
+	Get page by id.
+	If page in cache, use it, otherwise read DB and store page in cache
+*/
+	function get($id)
+	{
+		if(!isset(self::$_pages[ $id ]))
+		{
+			if($p = KMdb::get('pages', $id))
+				self::$_pages[ $id ] = $p;
+			else
+				KMlog::alarm('Pages', "Page [$id] not found.");
+		}
+
+		return self::$_pages[ $id ];
+	}
+
+
+
+/*
+	Get site Id (id of site's main page) by host (default current HTTP host without www.)
+	if alarm is true, raise alarm when site not found
+*/
+	function sid($host = null, $alarm = true)
+	{
+		if(!$host)
+			$host = KMhttp::host();
+
+		if(!isset(self::$_sites[ $host ]))
+		{
+			$s = KMdb::getw('pages', '(`pid` = 0) AND (`url` LIKE "%|'.KMdb::val($host).'|%")');
+			if($s)
+				self::$_sites[ $host ] = $s;
+			elseif($alarm)
+				KMlog::alarm('pages', 'Site ['.$host.'] not found');
+		}
+
+		return self::$_sites[ $host ];	
+	}
+
+
+/*
+	Get sub page by URL
+*/
+	function sub($pid, $url, $alarm = true)
+	{
+		$res = KMdb::query('SELECT * FROM `#__pages` WHERE (`pid`='.intval($pid).') 
+								AND (`url`="'.KMdb::val($url).'") AND '.KMdb::where().' LIMIT 0,1');
+
+		if(! ($r = KMdb::fetch($res)))
+		{
+			if($alarm)
+				KMdb::alarm('Page', 'Step ['.$p['id'].' => '.$u.'] not found');
+			else
+				return false;
+		}
+
+		self::$_pages[ $r['id'] ] = $r;
+		return $r;
+	}
+
+
+/*
+	Load page chain, by  URL
+	Fill $_path cache
+	raise "page:load" by each loaded page
+	calculate properties by each page
+*/
+
+	function load($url, $sid = null)
+	{
+		if(!$sid)
+			$sid = self::sid();
+
+		self::$_path = array( $sid );
+
+		$r = self::get($sid);
+		if(!is_array($p))
+			KMlog::alarm('page', "Site [$sid] not found");
+
+		$us = explode('/', $url);
+		foreach($us as $u)
+		{
+			$u = trim($u);
+			if(!$u)
+				continue;
+			
+			$r = self::sub($r['id'], $u, false);
+			if(!$r)
+				KMhttp::error('404');
+
+			KMhook::hook('page:load', $r);
+			if(KMmodule::is_last($r['type']))
+			{
+				KMmodule::load($r);
+				break;
+			}
+		}
+	}
+
+
+/*
+	Load childs of page
+	options:
+		'all'    - if isset, load all childes. Otherwise, only active
+		'module' - type of array of types module to load
+		'where'  - additional where statiment in sql query
+		
+	by default: no options
+*/
+	function query_childs($id, $opt = array())
+	{
+		$where = array();
+
+		if(isset($opt['module']))
+		{
+			if(is_array($opt['module']))
+				$where[] = '`type` IN '.KMdb::set($opt['module']);
+			else
+				$where[] = '`type` = "'.KMdb::val($opt['module']).'"';
+		}
+		
+		if(!$opt['all'])
+			$where[] = self::where();
+
+		if(isset($opt['where']))
+			$where[] = $opt['where'];
+		
+		if(count($where) == 0)
+			$where = 'TRUE';		
+	
+		return KMdb::query('SELECT * FROM `#__pages` WHERE ('.implode(') AND (', $where).') ORDER BY `lid`');
+	}
+
+
+
+/*
+	Insert new page
+*/
+	function insert($pid, $row)
+	{
+		// XXX
+		
+		KMhook::hook('page:insert', $row);	
+	}
+
+
+/*
+	Move page
+*/
+	function move($id, $pid)
+	{
+		// XXX
+
+		KMhook::hook('page:move', array($id, $pid));
+	}
+	
+
+/*
+	Delete page
+*/
+	function remove($id)
+	{
+		// XXX
+		$row = self::get($id);
+		if(!$row)
+			return false;
+
+		KMhook::hook('page:remove', $row);
+	}
+
+
+
+// ============================ OLD INTERFACE
+
+
 
 	static $_ps     = array();
 	static $_curr   = array();
@@ -13,7 +209,6 @@ class KMpage
 	static $_id     = null;
 	static $_data   = null;
 	static $_static = null;
-
 	static $_b = null;
 
 
