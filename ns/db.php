@@ -49,14 +49,19 @@ class KMdb
 
 	function open()
 	{
-		if(! @mysql_connect(self::$host, self::$user, self::$pass))
+		if(!@mysql_connect(self::$host, self::$user, self::$pass))
 		{
 			$error = mysql_error();
 			KMlog::alarm('SLQ', 'open = '.$error);
 			return false;
 		}
 
-		mysql_select_db(self::$base);
+		if(!@mysql_select_db(self::$base))
+		{
+			KMlog::alarm('SQL', 'Can`t select db: "'.self::$base.'", '.mysql_error());
+			return false;
+		}
+
 		if(!@mysql_query('SET NAMES UTF8'))
 		{	
 			KMlog::alarm('SQL', 'setup UTF8 failed: '.mysql_error());
