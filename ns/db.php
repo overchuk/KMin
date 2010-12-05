@@ -19,7 +19,7 @@ class KMdb
 
 	function sval($s)
 	{
-		return '"'.self::sval($s).'"';
+		return '"'.self::val($s).'"';
 	}
 
 	function vals($s, $i = array())
