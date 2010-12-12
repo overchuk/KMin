@@ -90,16 +90,16 @@ class KMtmpl
         return self::body_start($s);
     }
 
-    function body_end($tmpl='')
+    function body_end($category='', $template='default')
     {
         echo LF.'</body>';
         $body = ob_get_contents();
         ob_end_clean();
 
-        if($tmpl)
-            $tmpl = $tmpl.'/';
+        if($category)
+            $category = $category.'/';
 
-        include DIR_TEMPLATE.SL.$tmpl.'head.php';
+        include DIR_TEMPLATE.SL.$category.$template.'.php';
     }
 
 
