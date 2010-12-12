@@ -24,8 +24,8 @@
 	kmin_def('DIR_SITE',       dirname(DIR_ROOT));
 
 	/* Kmin configuration */
-	kmin_def('WEB_ROOT',       WEB_SITE.'/kmin');
-	kmin_def('WEB_ADMIN',      WEB_SITE.'/admin');
+	kmin_def('WEB_ROOT',   WEB_SITE.'/kmin');
+	kmin_def('WEB_ADMIN',  WEB_SITE.'/admin');
 	kmin_def('WEB_CSS',    WEB_ROOT.'/css' );
 	kmin_def('WEB_JS',     WEB_ROOT.'/js'  );
 	kmin_def('WEB_IMG',    WEB_ROOT.'/img' );

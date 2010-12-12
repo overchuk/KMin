@@ -3,6 +3,26 @@
     class KM 
     {
 
+		static $_const = array();
+
+	function set($name, $value)
+	{
+		self::$_const[ $name ] = $value;
+	}
+
+	function _($name)
+	{
+		return self::$_const[ $name ];
+	}
+
+	function get($name)
+	{
+		return self::_($name);
+	}
+
+
+
+
 	function ns($class, $cfg = true)
 	{
 		if(!class_exists('KM'.$class))
