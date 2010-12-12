@@ -13,7 +13,7 @@ function start()
 		session_set_cookie_params(self::$_time);
 	session_start();
 
-	KMhook:hook('session:start');
+	KMhook::hook('session:start');
 }
 
 function stop()
