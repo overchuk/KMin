@@ -76,7 +76,6 @@ function uid()
 function reget($id)
 {
 	self::$_u[ $id ] = KMdb::get('user', $id);
-	self::$_u[ $id ]['_'] = KMdb::get('user_add', $id, 'pid', false);
 	return self::$_u[ $id ];
 }
 
@@ -182,7 +181,7 @@ function add($row)
     }
 
     if(KMdb::insert('user', $r, false))
-		return KMdb::insert_id();
+		return KMdb::id();
 	else
 		return 'uniq';
 }
