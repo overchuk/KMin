@@ -14,7 +14,41 @@ class KMpage
 	// Cache of loaded path chain of pages
 	static $_path = array();
 
+	// Property of page	
+	static $_props  = array();
+
+
 	
+	function get_prop($name)
+	{
+		return self::$_props[$name];
+	}
+
+	function set_prop($name, $value)
+	{
+		self::$_props[$name] = $value;
+	}
+
+	function title()
+	{
+		return self::get_prop('title');
+	}
+
+	function description()
+	{
+		return self::get_prop('description');
+	}
+
+	function keywords()
+	{
+		return self::get_prop('keywords');
+	}
+
+	function content()
+	{
+		return self::get_prop('content');
+	}
+
 
 /*
 	XXX
@@ -204,7 +238,6 @@ class KMpage
 
 	static $_ps     = array();
 	static $_curr   = array();
-	static $_props  = array();
 	static $_url    = '';
 	static $_id     = null;
 	static $_data   = null;
