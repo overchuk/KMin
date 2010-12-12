@@ -199,7 +199,7 @@ class KMpage
 
 
 // ============================ OLD INTERFACE
-
+/*
 
 
 	static $_ps     = array();
@@ -274,13 +274,6 @@ class KMpage
 	}
 
 
-	/*
-
-		Get pid of static page by module name ($mod)
-		By default ($alarm = true) raise alarm,
-		if static page not found
-
-	*/
 	function thepid($mod, $alarm = true)
 	{
 		KM::ns('module');	
@@ -376,11 +369,6 @@ class KMpage
 
 	function complete()
 	{
-		/*
-		self::$_data = KMdb::get('page_data', self::id(), 'pid');
-		self::set_prop('name',    KMlang::val( self::$_data['name'] ));
-		self::set_prop('h1',      KMlang::val( self::$_data['h1'] ));
-		*/
 		$p = self::curr();
 		self::set_prop('name',    KMlang::val( $p['name'] ));
 		self::set_prop('h1',      KMlang::val( $p['h1']   ));
@@ -438,7 +426,7 @@ class KMpage
 
 		return self::$_b[$name][$param];
 	}
-
+*/
 
 }
 
