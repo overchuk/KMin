@@ -5,5 +5,4 @@
     $c = KM::cls('table');
 
     var_dump($c);
-
 ?>

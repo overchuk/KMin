@@ -1,0 +1,63 @@
+array(3) {
+  ["a"]=>
+  string(2) "11"
+  ["b"]=>
+  array(3) {
+    ["a"]=>
+    string(2) "12"
+    ["c"]=>
+    array(2) {
+      ["rr"]=>
+      int(1)
+      ["dd"]=>
+      int(2)
+    }
+    ["d"]=>
+    int(44)
+  }
+  ["c"]=>
+  array(0) {
+  }
+}
+<hr>array(5) {
+  ["a"]=>
+  string(2) "11"
+  ["b"]=>
+  array(3) {
+    ["a"]=>
+    string(2) "12"
+    ["c"]=>
+    array(3) {
+      ["rr"]=>
+      int(1)
+      ["dd"]=>
+      int(3)
+      ["v"]=>
+      array(2) {
+        ["zz"]=>
+        int(4)
+        ["yy"]=>
+        int(5)
+      }
+    }
+    ["d"]=>
+    int(15)
+  }
+  ["c"]=>
+  array(0) {
+  }
+  ["d"]=>
+  string(2) "83"
+  ["e"]=>
+  array(2) {
+    ["aa"]=>
+    string(2) "ab"
+    ["bb"]=>
+    array(2) {
+      ["a"]=>
+      int(1)
+      ["b"]=>
+      int(2)
+    }
+  }
+}

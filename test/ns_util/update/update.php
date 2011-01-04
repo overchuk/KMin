@@ -1,5 +1,6 @@
 <?
-    include '../config.php';
+error_reporting (E_ALL & ~E_NOTICE);
+    include '../../../config.php';
     kmin_import('ns');
     
     KM::ns('util');
