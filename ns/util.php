@@ -23,7 +23,7 @@ function update(&$one, &$two)
 
     foreach($two as $n => $v)
         if(is_array($one[$n]) AND is_array($v))
-            self::update(&$one[$n], &$v);
+            self::update($one[$n], $v);
         else
             $one[$n] = $v;
 }
