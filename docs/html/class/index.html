@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>KMIN - система управления</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="keywords"     content="" />
+<meta http-equiv="description"  content="" />
+<link rel="stylesheet" href="../css/style.css"/>
+</head>
+<body >
+
+<h2><a href="../index.html">К оглавлению</a></h2>
+<hr>
+
+<p>
+Все классы системы произведены из единого предка, <span class="klass">KM_</span>.
+Класс имеет единственное поле - <span class="code">$data</span>, ассоциативный 
+массив. Все данные хранятся в этом массиве, и механизм сохранения и восстановления
+объектов класса реализует сохранение типа объекта и значения <span class="code">$data</span>.
+</p>
+<p>
+<span class="klass">KM_</span> не предполагает создание объектов, и как правило должен быть использован только
+для наследия дугих классов. Управление классами производится при помощи namespace KMclass
+</p>
+<p>
+<span class="code">$object->data['kmin']['class']</span> - Имя класса данного объекта, без префикса KM_<br />
+<span class="code">$objcet->_init($default, $option)</span> - Инициализирует данные <span class="code">$data</span> получая на вход массив значений поумолчанию, и массив переопределений умолчальных значений. <br />
+<span class="code">$objcet->name()</span> - Возвращает имя класса объекта. <br />
+
+
+
+<center>
+<table cellspacing="0" cellpadding="5" border="0" class="tree">
+<tr><td></td><td><span class="klass">KM_</span></td><td></td></tr>
+
+<tr><td>/</td><td></td><td>\</td></tr>
+
+<tr><td width="33%">
+<span class="klass"><a href="visible.php">KM_visible</a></span><br>
+<span class="descr">
+Объекты этого класса могут быть отображены на страницах с помощью метода 
+<span class="code">show()</span><br>
+Все отображение инкапсулировано в шаблонах, и метод <span class="code">show</span> просто подключает
+соотвестствующий шаблон в контексте объекта.
+</span>
+</td>
+
+<td width="33%">&nbsp;</td>
+
+<td width="33%">
+
+<span class="klass">KM_???</span><br>
+<span class="descr">
+........
+</span>
+
+</td>
+<td>
+
+</td></tr>
+</table>
+</center>
+
+</body>
+</html>

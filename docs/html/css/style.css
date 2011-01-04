@@ -1,0 +1,27 @@
+body
+{
+	font-family:Arial;
+	font-size:14px;
+	font-weight:normal;
+	text-align:left;
+}
+
+table.tree td
+{
+	text-align:center;
+}
+
+span.klass
+{
+	font-weight:bold;
+}
+
+span.descr
+{
+	font-size:10px;
+}
+
+span.code
+{
+	font-family:courier;
+}
