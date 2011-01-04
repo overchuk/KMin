@@ -1,31 +1,11 @@
 <?
-
-/*
-
-	KM_pager
-
-	DATA:
-		on_page
-		dt
-		url
-		sql.count
-		sql.select
-			
-	
-		count
-		page	
-		total
-		page_count
-
-
-*/
     
 KM::ns('db');
 KM::ns('util');
 KM::ns('class');
 KMclass::uses();
 
-class KM_pager extends KM_visible
+class KM_pager extends KM_
 {
     
 function init($in)
