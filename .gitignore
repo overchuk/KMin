@@ -1,0 +1,4 @@
+test/*/*/*.res
+test/*/*/*.err
+test/errors.txt
+test/*/errors.txt
