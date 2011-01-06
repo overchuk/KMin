@@ -9,6 +9,7 @@
 		static public $idx   = 0;
 		static public $sep   = '<!-- | -->';
 		static public $need_lang = false;	
+		static public $mask = array('R');
 
 		function multi()
 		{
@@ -161,4 +162,5 @@
 		}
 
 	}
+
 ?>
