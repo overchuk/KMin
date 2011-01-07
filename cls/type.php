@@ -14,13 +14,14 @@ class KM_type extends KM_
 
 		by default, just display value.
 	*/
-	function input($id, $fid, $value)
+	function input($id, $fid, &$row)
 	{
 		KM::ns('html');
 		$c = $this->name();
 		if($c)
 			$c = 'class="km-'.$c.'"';
-		return '<input type="text" id="'.$this->js_id($id, $fid).'" name="'.$id.'" '.$c.' value="'.KMhtml::val($value).'" />'.LF;
+		return '<input type="text" id="'.$this->js_id($id, $fid).'" name="'.$id.'" '.
+					$c.' value="'.KMhtml::val($row[$id]).'" />'.LF;
 	}
 
 	function js_id($id, $fid)
@@ -29,19 +30,19 @@ class KM_type extends KM_
 	} 
 
 
-	function td($fid, $n, &$v)
+	function td($fid, $n, &$v, &$row)
 	{
-		return '<td>'.$this->input($n, $fid, $v['value']).'</td>';
+		return '<td>'.$this->input($n, $fid, $row).'</td>';
 	}
 
-	function th($fid, $n, &$v)
+	function th($fid, $n, &$v, &$row)
 	{
 		return '<th>'.$v['title'].'<br><font size=-2>'.$v['descr'].'</font></th>';
 	}
 
-	function tr($fid, $n, &$v)
+	function tr($fid, $n, &$v, &$row)
 	{
-		return '<tr>'.$this->th($fid, $n, $v).$this->td($fid, $n, $v).'</tr>'.LF;
+		return '<tr>'.$this->th($fid, $n, $v, $row).$this->td($fid, $n, $v, $row).'</tr>'.LF;
 	}
 
 	function js_check($fid, $n, &$v)

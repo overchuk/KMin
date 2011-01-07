@@ -15,7 +15,6 @@
 							'class' => 'tstring',
 							'data' => array(),
 						),
-				'value' => '',
 			),
 
 		'price' => array(
@@ -25,7 +24,6 @@
 							'class' => 'tint',
 							'data' => array('min' => 1),
 					),
-				'value' => '100'	
 			),
 
 		'type' => array(
@@ -39,7 +37,6 @@
 													2 => 'Второй тип',
 												))
 					),
-				'value' => '1'	
 			),
 
 		'art' => array(
@@ -49,11 +46,11 @@
 							'class' => 'tstring',
 							'data' => array('mask' => '...-\d\d\d')
 					),
-				'value' => 'xxx-000'
 			),
 	);
 
 
+	$row = array();
 
 	KMtmpl::body_start();
 
@@ -71,7 +68,7 @@
 
 	//echo '<form method="POST" id="f1" onsubmit="return f1_on_submit();">'.LF;
 	echo '<form method="POST" id="f1">'.LF;
-	KMprops::ps2form('f1', $ps);
+	KMprops::ps2form('f1', $ps, $row);
 	echo '<input type="submit" value="'.MSG_SUBMIT.'" />'.LF;
 	echo '<form>'.LF;
 

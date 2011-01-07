@@ -11,13 +11,13 @@
 */
 class KM_tenum extends KM_type
 {
-	function input($id, $fid, $value)
+	function input($id, $fid, &$row)
 	{
 		KM::ns('html');
 		$c = $this->name();
 		if($c)
 			$c = ' class="km-'.$c.'" ';
-		return KMhtml::combobox($id, $this->data['values'], $value, ' id="'.$fid.'_'.$id.'" '.$c);
+		return KMhtml::combobox($id, $this->data['values'], $row[$id], ' id="'.$fid.'_'.$id.'" '.$c);
 	}
 
 	function php_value($name, &$row, $post=null)

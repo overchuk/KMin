@@ -3,15 +3,18 @@
 class KMprops
 {
 
-function ps2form($fid, $ps)
+function ps2form($fid, &$ps, $row)
 {
 	KM::ns('class');
 	KM::ns('html');
 
+	if(!is_array($row))
+		$row = array();
+
 	foreach($ps as $n => $v)
 	{
 		$t = KMclass::obj($v['type']);
-		$ps[$n]['type'] = $t;
+		//$ps[$n]['type'] = $t;
 
 		$scr .= 'function '.$fid.'_'.$n.'_check(){'.LF.$t->js_check($fid, $n, $v).LF.'}'.LF;
 
@@ -26,7 +29,7 @@ function ps2form($fid, $ps)
 						return false;
 					}'.LF;
 			
-		$tab .= $t->tr($fid, $n, $v);
+		$tab .= $t->tr($fid, $n, $v, $row);
 	}
 
 	echo KMhtml::script($scr.'
