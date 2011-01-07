@@ -39,11 +39,19 @@ function ps2form($fid, $ps)
 }
 
 
-function form2ps($post = null)
+function form2value($ps, $post = null)
 {
-if(!isset($post))
-	$post = $_POST;
+	KM::ns('class');
 
+	$row = array();
+	foreach($ps as $n => $v)
+	{
+		$t = KMclass::obj($v['type']);
+		if(!$t->php_value($n, $row, $post))
+			return $n;
+	}
+
+	return $row;
 }
 
 

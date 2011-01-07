@@ -19,6 +19,29 @@ class KM_tint extends KM_type
 		KMhtml::js('kmin.validator');
 		return 'return kmin.validator.num("'.$this->js_id($id, $fid).'", "'.$this->data['min'].'", "'.$this->data['max'].'");';
 	}
+
+	function php_value($name, &$row, $post = null)
+	{
+		if(isset($post))
+			$i = intval($post[$name]);
+		else
+			$i = intval($_POST[$name]);
+
+		if(isset($this->data['min']))
+		{
+			if($i < intval( $this->data['min'] ))
+				return false;
+		}
+
+		if(isset($this->data['max']))
+		{
+			if($i > intval( $this->data['max'] ))
+				return false;
+		}
+
+		$row[$name] = $i;
+		return true;
+	}
 }
 
 ?>

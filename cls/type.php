@@ -54,6 +54,19 @@ class KM_type extends KM_
 		return 'document.getElementById("'.$this->js_id($n, $fid).'").focus();';
 	}
 
+
+	/*
+		Check and set value on PHP side
+	*/
+	function php_value($name, &$row, $post=null)
+	{
+		if(!isset($post))
+			$post = $_POST;
+
+		$row[$name] = $post[$name];
+		return true;
+	}	
+
 }
 
 ?>

@@ -19,7 +19,7 @@
 			),
 
 		'price' => array(
-				'title' => '',
+				'title' => 'Цена',
 				'descr' => '',
 				'type' => array(
 							'class' => 'tint',
@@ -57,11 +57,20 @@
 
 	KMtmpl::body_start();
 
-	echo '<pre>';
-	var_dump($_POST);
-	echo '</pre><hr>'.LF;
+	if( count($_POST) > 0)
+	{
+		echo '<pre>';
+		var_dump($_POST);
+		echo '</pre><hr>'.LF;
 
-	echo '<form method="POST" id="f1" onsubmit="return f1_on_submit();">'.LF;
+		$row = KMprops::form2value($ps);
+		echo '<pre>';
+		var_dump($row);
+		echo '</pre><hr>'.LF;
+	}
+
+	//echo '<form method="POST" id="f1" onsubmit="return f1_on_submit();">'.LF;
+	echo '<form method="POST" id="f1">'.LF;
 	KMprops::ps2form('f1', $ps);
 	echo '<input type="submit" value="'.MSG_SUBMIT.'" />'.LF;
 	echo '<form>'.LF;
