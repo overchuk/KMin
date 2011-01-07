@@ -61,10 +61,11 @@
 
 	function js_const()
 	{
-		return 'kmin.const.web_root = "'.WEB_ROOT.'";'.LF
-				.'kmin.const.web_site = "'.WEB_SITE.'";'.LF;
+		return 'kmin.def.web_root = "'.WEB_ROOT.'";'.LF
+				.'kmin.def.web_site = "'.WEB_SITE.'";'.LF;
+				.'kmin.def.web_icon = "'.WEB_ICON.'";'.LF;
 	}
 
-    }
+}
 
 ?>

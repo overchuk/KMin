@@ -46,8 +46,8 @@
 
 	// Initial js code for each script
 	KMhtml::$init_js = array(
-					'kmin.re'    => KMlang::js_init(),
-					'kmin.const' => KM::js_const(),
+					'kmin.re'  => KMlang::js_init(),
+					'kmin.def' => KM::js_const(),
 				);
 
 	// CSS binding to JS files
