@@ -58,6 +58,41 @@ function form2value($ps, $post = null)
 }
 
 
+/*
+
+ Draw form for editing properties set $ps
+ or processing this form.
+ If $_POST present, processed data, change $ps 
+ and return true
+
+*/
+function edit($fid, &$ps)
+{
+	if($_POST['task'] == $fid.'_props_edit')
+	{
+		// XXX
+		$ps = array('one', 'two');
+		return true;
+	}
+	
+	KM::ns('html');
+	KMhtml::js('kmin.rowedit');
+
+
+	echo '<form method="POST" id="'.$fid.'"><input type="hidden" name="task" value="'.$fid.'_props_edit">
+	<table id="'.$fid.'__table" width="100%" cellspacing="0" cellpadding="3" border="1">'.LF;
+
+
+	echo '</table>'.LF;	
+
+	echo '<input type="text" id="'.$fid.'__name" value="aa" />';	
+	echo '<span style="cursor:pointer;" 
+	onclick="'.$fid.'__sz = kmin.rowedit.add(\''.$fid.'\', document.getElementById(\''.$fid.'__name\').value);">INSERT</span>';
+
+
+}
+
+
 }	
 
 ?>

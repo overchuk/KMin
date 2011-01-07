@@ -25,9 +25,10 @@
 
                         'kmin' => WEB_JS.SL.'kmin.js',
                         'kmin.re' => WEB_JS.SL.'kmin.re.js',
-                        'kmin.const' => WEB_JS.SL.'kmin.const.js',
+                        'kmin.def' => WEB_JS.SL.'kmin.const.js',
                         'kmin.store' => WEB_JS.SL.'kmin.store.js',
                         'kmin.validator' => WEB_JS.SL.'kmin.validator.js',
+                        'kmin.rowedit' => WEB_JS.SL.'kmin.rowedit.js',
 
                         'tiny' => WEB_SITE.'/TinyMCE/jscripts/tiny_mce/tiny_mce.js'
                 );
@@ -40,8 +41,9 @@
 					'lightbox' => array('jquery', 'kmin.const'),
                     'kmin' => array('jquery'),
                     'kmin.re' => array('kmin'),
-                    'kmin.const' => array('kmin'),
-                    'kmin.validator' => array('kmin')
+                    'kmin.def' => array('kmin'),
+                    'kmin.validator' => array('kmin'),
+                    'kmin.rowedit' => array('kmin.def')
                 );
 
 	// Initial js code for each script
