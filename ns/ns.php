@@ -62,7 +62,7 @@
 	function js_const()
 	{
 		return 'kmin.def.web_root = "'.WEB_ROOT.'";'.LF
-				.'kmin.def.web_site = "'.WEB_SITE.'";'.LF;
+				.'kmin.def.web_site = "'.WEB_SITE.'";'.LF
 				.'kmin.def.web_icon = "'.WEB_ICON.'";'.LF;
 	}
 
