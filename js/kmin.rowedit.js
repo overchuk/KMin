@@ -33,18 +33,21 @@ kmin.rowedit.fill = function(id,sz){
 kmin.rowedit.add=function(id,html){
 	var sz = kmin.rowedit.size(id);
 	var t = document.getElementById(id + '__table');
-	t.innerHTML += '<tr id="'+id+'__row_'+sz+'"><td width="*" id="'+id+'__cell_'+sz+'">'+html+'</td><td width="64" id="'+id+'__bar_'+sz+'"></td></tr>';
+	t.innerHTML += '<tr id="'+id+'__row_'+sz+'"><td width="*" id="'+id+'__cell_'+sz+'"><div class="'+id+'__box">'
+					+html+'</td><td width="64" id="'+id+'__bar_'+sz+'"></div></td></tr>';
 	sz++;
 	kmin.rowedit.fill(id,sz);
 	return sz;
 }
 
 kmin.rowedit.up=function(id,n){
-	var c1 = document.getElementById(id+'__cell_'+n);
-	var c2 = document.getElementById(id+'__cell_'+(n-1));
-	var h = c1.innerHTML;
-	c1.innerHTML = c2.innerHTML;
-	c2.innerHTML = h;
+	var k = n;
+	k--;
+	var c1 = $('#'+id+'__cell_'+n+' div.'+id+'__box').remove(); 
+	var c2 = $('#'+id+'__cell_'+k+' div.'+id+'__box').remove();
+
+	c1.appendTo('#'+id+'__cell_'+k);
+	c2.appendTo('#'+id+'__cell_'+n);
 }
 
 kmin.rowedit.down=function(id,n){
@@ -54,7 +57,10 @@ kmin.rowedit.down=function(id,n){
 kmin.rowedit.del=function(id,n){
 	var sz = kmin.rowedit.size(id);
 	for(i = n; (i+1)<sz; i++)
-		document.getElementById(id+'__cell_'+i).innerHTML = document.getElementById(id+'__cell_'+(i+1)).innerHTML;
+	{
+		$('#'+id+'__cell_'+i).empty();
+		$('#'+id+'__cell_'+(i+1)+' div.'+id+'__box').remove().appendTo('#'+id+'__cell_'+i);
+	}
 
 	$('#'+id+'__row_'+(sz-1)).remove();
 	sz--;

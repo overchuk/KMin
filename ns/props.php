@@ -71,12 +71,61 @@ function edit($fid, &$ps)
 	if($_POST['task'] == $fid.'_props_edit')
 	{
 		// XXX
-		$ps = array('one', 'two');
+		$ps = $_POST;
 		return true;
 	}
 	
 	KM::ns('html');
 	KMhtml::js('kmin.rowedit');
+	KMhtml::js('kmin.validator');
+
+	echo KMhtml::script('
+
+	function '.$fid.'__error(msg)
+	{
+		alert(msg);
+		document.getElementById("'.$fid.'__name").focus();
+	}
+
+	function '.$fid.'__check(t,v)
+	{
+		return t.value != v;
+	}
+
+	function '.$fid.'__add(name, type)
+	{
+		if(! kmin.validator.vstr(name, 1, 32, "^[a-z0-9]*$") )
+		{
+			'.$fid.'__error("'.MSG_INVALID_VALUE.'"); 
+			return false;
+		}
+
+		var test = name;	
+		var bad  = false;
+		var t = $("input.'.$fid.'__form_name").each(function(){
+				if(this.value == test)
+				{
+					bad = true;
+					return false;
+				}
+				return true;
+			});
+		if( bad )
+		{
+			'.$fid.'__error("'.MSG_ALREADY_EXISTS.'"); 
+			return false;
+		}
+
+		h  = \'<div style="margin:0px;padding:0px;width:50%;float:left;background-color:#FFF0F0">\';
+		h += \'<input type="hidden" class="'.$fid.'__form_name" name="'.$fid.'__fname[]" value="\'+name+\'" />\';
+		h += \'<strong>\'+name+\'</strong><br>Title: <input type="text" name="'.$fid.'__ftitle_\'+name+\'" value="" /><br>\';
+		h += \'Description: <input type="text" name="'.$fid.'__fdescr_\'+name+\'" value="" /><br>\';
+		h += \'</div><div style="margin:0px;padding:0px;width:50%;height:100%;float:left;background-color:#F0FFF0">&nbsp;</div>\';
+
+		kmin.rowedit.add("'.$fid.'", h);
+	} 
+	
+');
 
 
 	echo '<form method="POST" id="'.$fid.'"><input type="hidden" name="task" value="'.$fid.'_props_edit">
@@ -84,10 +133,11 @@ function edit($fid, &$ps)
 
 
 	echo '</table>'.LF;	
+	echo '<input type="submit" value="'.MSG_SAVE.'"></form>'.LF;
 
 	echo '<input type="text" id="'.$fid.'__name" value="aa" />';	
 	echo '<span style="cursor:pointer;" 
-	onclick="'.$fid.'__sz = kmin.rowedit.add(\''.$fid.'\', document.getElementById(\''.$fid.'__name\').value);">INSERT</span>';
+	onclick="'.$fid.'__add(document.getElementById(\''.$fid.'__name\').value);">INSERT</span>';
 
 
 }

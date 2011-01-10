@@ -11,7 +11,9 @@
 
 	if( KMprops::edit('f1', $ps) )
 	{
+		echo '<pre>';
 		var_dump($ps);
+		echo '</pre>'.LF;
 	}
 
 
