@@ -32,6 +32,7 @@
 	kmin_def('WEB_ICON',   WEB_ROOT.'/icon');
 	kmin_def('WEB_IMAGES', WEB_ROOT.'/images');
 	kmin_def('WEB_FILES',  WEB_ROOT.'/files');
+	kmin_def('WEB_TASK',   WEB_ROOT.'/task');
 
 
 	kmin_def('DIR_USER',       DIR_ROOT .'/static');

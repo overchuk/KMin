@@ -125,13 +125,17 @@
 		function set($url)
 		{
 			$i = 0;
-			
 			foreach(self::$langs as $l)
 			{
 				if($l == $url)
 				{
 					self::$idx  = $i;
 					self::$lang = $l;
+
+					KM::ns('html');
+					KMhtml::add_head( KMhtml::script('kmin.def.lang = '.intval(self::$idx).';') );
+
+					@include_once DIR_MSG.'/'.$l.'.php';
 					return true;
 				}
 			
@@ -144,6 +148,14 @@
 				KMlog::alarm('Lang', 'No language url:'.$url);
 			}
 			return false;
+		}
+
+		function seti($idx)
+		{
+			$l = self::$langs[ $idx ];
+			if(!isset($l))
+				$l = self::$langs[0];
+			self::set($l);
 		}
 
 		function url($lang = null)

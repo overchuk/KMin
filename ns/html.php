@@ -594,6 +594,35 @@
             return '</div></div>'.LF;
         }        
 
+
+		function help($id, $help, $ops)
+		{
+			if(!is_array($ops))
+			{
+				$w = intval($ops);
+				if($w)
+					$ops = array('width' => $w);
+				else
+					$ops = array();
+			}
+
+			$t = array(
+						"activation: 'click'",
+						"sticky: true",
+						"closePosition: 'title'",
+						"closeText: '<img src=\"".WEB_ICON."/close.png\" />'",
+						);
+			foreach($ops as $n => $v)
+				$t[] = "$n: $v";
+	
+
+			self::js('jq.tip');
+			return  '<a id="'.$id.'" href="#" rel="'.WEB_TASK.'/help.php?help='.urlencode($help).'"
+						title="'.MSG_HELP.'">'.
+						'<img src="'.WEB_ICON.'/question.png" width="16"></a>'.
+						self::script('$(document).ready(function(){ $("#'.$id.'").cluetip({'.implode(', ', $t).'}); });');
+		}
+
         // =====================================================================
 	}
 
