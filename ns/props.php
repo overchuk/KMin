@@ -3,6 +3,15 @@
 class KMprops
 {
 
+
+static $types = array();
+
+function types()
+{
+	return self::$types;
+}
+
+
 function ps2form($fid, &$ps, $row)
 {
 	KM::ns('class');
@@ -94,6 +103,8 @@ function edit($fid, &$ps)
 
 	function '.$fid.'__add(name, type)
 	{
+		alert(type);
+
 		if(! kmin.validator.vstr(name, 1, 32, "^[a-z0-9]*$") )
 		{
 			'.$fid.'__error("'.MSG_INVALID_VALUE.'"); 
@@ -120,9 +131,15 @@ function edit($fid, &$ps)
 		h += \'<input type="hidden" class="'.$fid.'__form_name" name="'.$fid.'__fname[]" value="\'+name+\'" />\';
 		h += \'<strong>\'+name+\'</strong><br>Title: <input type="text" name="'.$fid.'__ftitle_\'+name+\'" value="" /><br>\';
 		h += \'Description: <input type="text" name="'.$fid.'__fdescr_\'+name+\'" value="" /><br>\';
-		h += \'</div><div style="margin:0px;padding:0px;width:50%;height:100%;float:left;background-color:#F0FFF0">&nbsp;</div>\';
+		h += \'</div><div id="'.$fid.'__param_\'+name+\'" \';
+		h += \'style="margin:0px;padding:0px;width:50%;height:100%;float:left;background-color:#F0FFF0">&nbsp;</div>\';
 
 		kmin.rowedit.add("'.$fid.'", h);
+	
+		$.get(kmin.def.web_root+"/task/prop/param.php?type="+type+"&prefix='.$fid.'__fp_"+name, function(data){
+			var n = name;
+			$("#'.$fid.'__param_"+name).html(data);
+		});
 	} 
 	
 ');
@@ -133,11 +150,12 @@ function edit($fid, &$ps)
 
 
 	echo '</table>'.LF;	
-	echo '<input type="submit" value="'.MSG_SAVE.'"></form>'.LF;
+	echo '<input type="submit" value="'.MSG_SAVE.'"></form><br>'.LF;
 
-	echo '<input type="text" id="'.$fid.'__name" value="aa" />';	
+	echo MSG_ID.': <input type="text" id="'.$fid.'__name" value="aa" />&nbsp;'.MSG_TYPE.': '.
+			KMhtml::combobox('', self::types(), null, ' id="'.$fid.'__type" ');	
 	echo '<span style="cursor:pointer;" 
-	onclick="'.$fid.'__add(document.getElementById(\''.$fid.'__name\').value);">INSERT</span>';
+	onclick="'.$fid.'__add(document.getElementById(\''.$fid.'__name\').value, document.getElementById(\''.$fid.'__type\').value);">INSERT</span>';
 
 
 }

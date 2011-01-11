@@ -312,6 +312,12 @@
 			if($ops)
 				$ops = " $ops";
 
+			if(!isset($value))
+			{
+				$keys = array_keys($hash);
+				$value = $keys[0];
+			}
+
 			foreach($hash as $n => $v)
 			{
 				$sel = ($n == $value) ? ' selected="selected"' : '';

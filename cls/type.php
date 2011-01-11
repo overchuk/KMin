@@ -6,6 +6,13 @@ Root class for KMin data types
 */
 class KM_type extends KM_
 {
+
+	/*
+		============= HTML side
+	*/
+
+
+
 	/* 
 		Show HTML input element(s) by datatype
 		$id    - property name
@@ -57,8 +64,11 @@ class KM_type extends KM_
 
 
 	/*
-		Check and set value on PHP side
+		============ PHP side
 	*/
+
+
+	/*	Check and set value on PHP side	*/
 	function php_value($name, &$row, $post=null)
 	{
 		if(!isset($post))
@@ -67,6 +77,26 @@ class KM_type extends KM_
 		$row[$name] = $post[$name];
 		return true;
 	}	
+
+
+
+
+	/*	
+		=========== ADMIN side
+	*/
+
+	function admin_form($prefix)
+	{
+		//return '<strong>'.$prefix.' - '.$this->name().'</strong>';
+		return '<strong>'.$prefix.' - '.$this->name().'</strong>';
+	}
+
+
+
+
+	/*
+		============ SQL side
+	*/
 
 }
 
