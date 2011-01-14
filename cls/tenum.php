@@ -33,6 +33,22 @@ class KM_tenum extends KM_type
 		$row[$name] = $v;
 		return true;
 	}
+
+	function admin_form($prefix)
+	{
+		KM::ns('html');
+
+		if(is_array($this->data['value']))
+			$v = implode('|', $this->data['value']);
+		else
+			$v = '';
+
+		return KMhtml::help($prefix.'__help','types/enum',600).'<br />'.
+					MSG_ENUM_VALUES.':<br> <input type="text" size="60" name="'.$prefix.'_vals" value="'.$v.'" />';
+								
+	}
+
+
 }
 
 ?>

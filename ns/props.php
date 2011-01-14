@@ -103,7 +103,7 @@ function edit($fid, &$ps)
 		return t.value != v;
 	}
 
-	function '.$fid.'__add(name, type)
+	function '.$fid.'__add(name, type, text)
 	{
 		if(! kmin.validator.vstr(name, 1, 32, "^[a-z0-9]*$") )
 		{
@@ -129,7 +129,7 @@ function edit($fid, &$ps)
 
 		h  = \'<div style="margin:0px;padding:0px;width:50%;float:left;background-color:#FFF0F0">\';
 		h += \'<input type="hidden" class="'.$fid.'__form_name" name="'.$fid.'__fname[]" value="\'+name+\'" />\';
-		h += \'<strong>\'+name+\'</strong><br>'.MSG_TITLE.': <input type="text" name="'.$fid.'__ftitle_\'+name+\'" value="" /><br>\';
+		h += \'<strong>\'+name+\' - \'+text+\'</strong><br>'.MSG_TITLE.': <input type="text" name="'.$fid.'__ftitle_\'+name+\'" value="" /><br>\';
 		h += \''.MSG_DESCRIPTION.': <input type="text" name="'.$fid.'__fdescr_\'+name+\'" value="" /><br>\';
 		h += \'</div><div id="'.$fid.'__param_\'+name+\'" \';
 		h += \'style="margin:0px;padding:0px;width:50%;height:100%;float:left;background-color:#F0FFF0">&nbsp;</div>\';
@@ -146,9 +146,13 @@ function edit($fid, &$ps)
 
 	echo MSG_INSERT.'&nbsp;'.MSG_PROPERTY.': <input type="text" id="'.$fid.'__name" value="aa" />&nbsp;&nbsp;'.
 			KMhtml::combobox('', self::types(), null, ' id="'.$fid.'__type" ').'&nbsp;';
-	echo '<button onclick="'.$fid.'__add(document.getElementById(\''.$fid.'__name\').value, document.getElementById(\''.$fid.'__type\').value);">';
+
+	echo '<button onclick="'.$fid.'__add(document.getElementById(\''.$fid.'__name\').value, '.
+			'document.getElementById(\''.$fid.'__type\').value, '.
+			'$(\'#'.$fid.'__type :selected\').text() );">';
+
 	echo MSG_INSERT.'</button>'.
-		KMhtml::help($fid.'__help_insert', 'props/insert', MSG_HELP_PROPERTY_INSERT, 600).'<hr>'.LF; 
+		KMhtml::help($fid.'__help_insert', 'props/edit', 600).'<hr>'.LF; 
 
 
 	echo '<form method="POST" id="'.$fid.'"><input type="hidden" name="task" value="'.$fid.'_props_edit">
