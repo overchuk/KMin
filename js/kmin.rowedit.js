@@ -32,9 +32,15 @@ kmin.rowedit.fill = function(id,sz){
 
 kmin.rowedit.add=function(id,html){
 	var sz = kmin.rowedit.size(id);
+
+	$('<tr id="'+id+'__row_'+sz+'"><td width="*" id="'+id+'__cell_'+sz+'"><div class="'+id+'__box">'
+			+html+'</td><td width="64" id="'+id+'__bar_'+sz+'"></div></td></tr>' ).appendTo('#'+id+'__table tbody');
+
+/*
 	var t = document.getElementById(id + '__table');
 	t.innerHTML += '<tr id="'+id+'__row_'+sz+'"><td width="*" id="'+id+'__cell_'+sz+'"><div class="'+id+'__box">'
 					+html+'</td><td width="64" id="'+id+'__bar_'+sz+'"></div></td></tr>';
+*/
 	sz++;
 	kmin.rowedit.fill(id,sz);
 	return sz;
@@ -43,8 +49,8 @@ kmin.rowedit.add=function(id,html){
 kmin.rowedit.up=function(id,n){
 	var k = n;
 	k--;
-	var c1 = $('#'+id+'__cell_'+n+' div.'+id+'__box').remove(); 
-	var c2 = $('#'+id+'__cell_'+k+' div.'+id+'__box').remove();
+	var c1 = $('#'+id+'__cell_'+n+' div.'+id+'__box');
+	var c2 = $('#'+id+'__cell_'+k+' div.'+id+'__box');
 
 	c1.appendTo('#'+id+'__cell_'+k);
 	c2.appendTo('#'+id+'__cell_'+n);
