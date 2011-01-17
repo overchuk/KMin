@@ -156,8 +156,8 @@ function edit($fid, &$ps)
 
 
 	echo '<form method="POST" id="'.$fid.'"><input type="hidden" name="task" value="'.$fid.'_props_edit">
-	<table id="'.$fid.'__table" width="100%" cellspacing="0" cellpadding="3" border="1">'.LF;
-	echo '</table>'.LF;	
+	<table id="'.$fid.'__table" width="100%" cellspacing="0" cellpadding="3" border="1"><tbody>'.LF;
+	echo '</tbody></table>'.LF;	
 	echo '<input type="submit" value="'.MSG_SAVE.'"></form><br>'.LF;
 
 
