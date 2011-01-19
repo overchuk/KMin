@@ -1,0 +1,78 @@
+ul.tree {
+
+    font-family: Verdana, sans-serif;
+    font-size: 11px;
+    line-height: 18px;
+    padding: 0px;
+    margin: 0px;
+}
+
+ul.tree li {
+
+    cursor: pointer;
+    list-style: none;
+    padding-left: 20px;
+    margin-left: 15px;
+    white-space: nowrap;
+    border-top: 2px solid #fff;
+    background-repeat: no-repeat;
+    background-position: left top;
+    background-color: #fff;
+}
+
+ul.tree a {
+
+    color: #333;
+    display: block;
+}
+
+ul.tree a.hover {
+
+    background: #BDF;
+}
+
+ul.tree a.active {
+    
+    background: #eee;
+}
+
+ul.tree a.active.hover {
+
+    background: #BDF;
+}
+
+ul.tree .insert {
+
+    border-top-color: #BDF;
+}
+
+ul.tree .end {
+
+    height: 2px; 
+    line-height: 2px; /* for opera */
+    font-size: 0px; /* for ie */
+}
+
+ul.tree .end a.hover {
+
+    background: #fff;
+}
+
+ul.tree a.collapsed {
+
+    width: 16px;
+    height: 16px;
+    background: url(images/collapsed.png) left top no-repeat;
+    float: left;
+}
+
+ul.tree a.expanded {
+
+    width: 16px;
+    height: 16px;
+    background: url(images/expanded.png) left top no-repeat;
+    float: left;
+}
+
+.tree li.wait { background: url(images/spinner.gif) left top no-repeat; }
+
