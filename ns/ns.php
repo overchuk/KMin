@@ -20,6 +20,18 @@
 		return self::_($name);
 	}
 
+	function site_cfg($ns)
+	{
+		$f = DIR_SITE_CFG.SL.$ns.'.php';
+		if(is_file($f))
+		{
+			include $f;
+			return true;
+		}
+		else
+			return false;
+			
+	}
 
 
 

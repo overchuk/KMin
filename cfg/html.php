@@ -1,4 +1,5 @@
 <?
+
 	KM::ns('lang');
 
     // CSS files
@@ -9,9 +10,9 @@
                             'table' => WEB_CSS.SL.'table.css',
                             'pager' => WEB_CSS.SL.'pager.css',
 							're' => WEB_CSS.SL.'re.css',
-
+							'tree' => WEB_CSS.'/tree.css',
                             'admin' => WEB_ADMIN.'/css/style.css',
-							'style' => WEB_SITE.'/css/style.css'
+							'style' => WEB_SITE.'/css/style.css',
                         );
 
 	// JS files
@@ -27,6 +28,7 @@
 						'jq.bigframe' => WEB_JS.SL.'jq.bigframe.js',
 						'jq.hover' => WEB_JS.SL.'jq.hover.js',
 						'jq.tip'	=> WEB_JS.SL.'jq.tip.js',
+						'jq.tree'   => WEB_JS.SL.'jq.tree.js',
 
                         'kmin' => WEB_JS.SL.'kmin.js',
                         'kmin.re' => WEB_JS.SL.'kmin.re.js',
@@ -47,6 +49,7 @@
 					'jq.tip' => array('jquery', 'jq.hover', 'jq.bigframe'),
 					'jq.hover' => array('jquery'),
 					'jq.bigframe' => array('jquery'),
+					'jq.tree' => array('jquery'),
                     'kmin' => array('jquery'),
                     'kmin.re' => array('kmin'),
                     'kmin.def' => array('kmin'),
@@ -66,6 +69,9 @@
 					'kmin.re'  => array('re'),
 					'lightbox' => array('lightbox'),
 					'jq.tip' => array('jq.tip'),
+					'jq.tree' => array('tree'),
 				);
 
+	// Load site-dep configuration
+	KM::site_cfg('html');
 ?>
