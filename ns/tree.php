@@ -1,6 +1,6 @@
 <?
 
-ns('db');
+KM::ns('db');
 
 class KMtree
 {
@@ -32,10 +32,10 @@ class KMtree
 
 
 	// Insert entire row
-	function insert($table, $pid, $row)
+	function insert($table, $row)
 	{
 		KMdb::lock($table);
-		if($pid == 0)
+		if($row['pid'] == 0)
 		{
 			$rid = intval(KMdb::res(KMdb::query('SELECT MAX(`rid`) FROM `'.KMdb::table($table).'`')));
 			$row['lid'] = $rid+1;
@@ -44,11 +44,11 @@ class KMtree
 		else
 		{
 			$p = KMdb::get($table, $row['pid']);
-			self::prepare($p['rid'], 2);
+			self::_prepare($table, $p['rid'], 2);
 			$row['lid'] = $p['rid'];
 			$row['rid'] = $p['rid']+1;
 		}
-		KMdb::insert('page', $row);
+		KMdb::insert($table, $row);
 		$ret = KMdb::id();
 		KMdb::unlock($table);
 
@@ -72,7 +72,7 @@ class KMtree
 	}
 
 	// Move row $r to childs of $pid
-	function move($id, $pid)
+	function move($table, $id, $pid)
 	{
 		KMdb::lock();
 
@@ -97,9 +97,9 @@ class KMtree
 			$n = intval($r['rid'] - $r['lid'] + 1);
 
 			// Prepare place in new parent
-			self::prepare($p['rid'], $n);
+			self::_prepare($table, $p['rid'], $n);
 
-			// Renew row (can be changed, by self::prepare)
+			// Renew row (can be changed, by self::_prepare)
 			$r = self::get($r['id']);
 
 			// Calculate dN and prepare as SQL statement
@@ -128,5 +128,7 @@ class KMtree
 
 		KMdb::unlock();
 	}
+
+}
 
 ?>
