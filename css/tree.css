@@ -14,10 +14,10 @@ ul.tree li {
     padding-left: 20px;
     margin-left: 15px;
     white-space: nowrap;
-    border-top: 2px solid #fff;
+/*    border-top: 2px solid #fff; */
     background-repeat: no-repeat;
     background-position: left top;
-    background-color: #fff;
+/*    background-color: #fff; */
 }
 
 ul.tree a {
@@ -28,17 +28,19 @@ ul.tree a {
 
 ul.tree a.hover {
 
-    background: #BDF;
+    background: #BFD;
+	color: black;
 }
 
 ul.tree a.active {
     
-    background: #eee;
+    background: #00c000;
+	color: white;
 }
 
 ul.tree a.active.hover {
 
-    background: #BDF;
+    background: #687;
 }
 
 ul.tree .insert {
@@ -55,7 +57,7 @@ ul.tree .end {
 
 ul.tree .end a.hover {
 
-    background: #fff;
+/*    background: #fff; */
 }
 
 ul.tree a.collapsed {
