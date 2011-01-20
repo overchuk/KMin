@@ -161,6 +161,14 @@ class KMpage
 
 
 /*
+	Load all root elementa (all sites)
+*/
+	function query_sites()
+	{
+		return KMdb::query('SELECT * FROM `#__pages` WHERE (`pid`=0) ORDER BY `lid`');
+	}
+
+/*
 	Load childs of page
 	options:
 		'all'    - if isset, load all childes. Otherwise, only active
@@ -171,7 +179,7 @@ class KMpage
 */
 	function query_childs($id, $opt = array())
 	{
-		$where = array();
+		$where = array('pid = '.intval($id));
 
 		if(isset($opt['module']))
 		{
@@ -187,9 +195,6 @@ class KMpage
 		if(isset($opt['where']))
 			$where[] = $opt['where'];
 		
-		if(count($where) == 0)
-			$where = 'TRUE';		
-	
 		return KMdb::query('SELECT * FROM `#__pages` WHERE ('.implode(') AND (', $where).') ORDER BY `lid`');
 	}
 
@@ -200,8 +205,11 @@ class KMpage
 */
 	function insert($pid, $row)
 	{
-		// XXX
-		
+		// XXX Need checks
+
+		KM::ns('tree');
+		$row['pid'] = $pid;
+		$row['id']  = KMtree::insert('pages', $row);
 		KMhook::hook('page:insert', $row);	
 	}
 
