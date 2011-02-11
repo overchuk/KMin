@@ -102,6 +102,12 @@ class KMtmpl
         include DIR_TEMPLATE.SL.$category.$template.'.php';
     }
 
+/*
+	function draw(&$this, $cat, $tmpl='default')
+	{
+		@include DIR_TEMPLATE.SL.$cat.SL.$tmpl.'.php';
+	}
+*/
 
 }
 

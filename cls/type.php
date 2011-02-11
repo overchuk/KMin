@@ -62,6 +62,10 @@ class KM_type extends KM_
 		return 'document.getElementById("'.$this->js_id($n, $fid).'").focus();';
 	}
 
+	function html($name, &$row)
+	{
+		return $row[ $name ];
+	}
 
 	/*
 		============ PHP side

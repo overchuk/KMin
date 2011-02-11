@@ -49,7 +49,7 @@ function ps2form($fid, &$ps, $row)
 					return true;		
 				}'.LF);
 
-	echo KMhtml::tag('table', $tab);
+	echo KMhtml::tag('table', $tab, 'class="props"');
 }
 
 

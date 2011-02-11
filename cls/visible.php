@@ -9,10 +9,11 @@
 
 
 	/*
-          Get HTML code for display this object
+          Show HTML code for display this object
           Incapsulate in separate template files
         */
-        function html($tmpl='', $part='', $cls='')
+
+        function show($tmpl='', $part='', $cls='')
         {
             if(!$cls)
                 $cls = $this->data['tmpl']['class']; 
@@ -32,22 +33,24 @@
             $f = DIR_TEMPLATE.SL.$cls.SL.$part.$tmpl.'.php';
             if(is_file($f))
             {
-                ob_start();
                 include($f);
-                $ret = ob_get_contents();
-                ob_end_clean();
-                return $ret;
             }
             else
+			{
+				KM::ns('log');
                 KMlog::alarm('Template', 'tmpl-file not found:'.$f);
-
-            return '';
+			}
         }
 
-        function show($tmpl='', $part='', $cls='')
+        function html($tmpl='', $part='', $cls='')
         {
-            echo $this->html($tmpl, $part, $cls);    
+			ob_start();
+			self::show($tmpl, $part, $cls);
+			$ret = ob_get_contents();
+			ob_end_clean();
+			return $ret;
         }
+
     }
 
 ?>
