@@ -48,7 +48,7 @@ class KMtree
 			$row['lid'] = $p['rid'];
 			$row['rid'] = $p['rid']+1;
 		}
-		KMdb::insert($table, $row);
+		KMdb::insert($table, KMdb::vals($row));
 		$ret = KMdb::id();
 		KMdb::unlock($table);
 
