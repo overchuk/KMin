@@ -1,4 +1,5 @@
 <?
+	define('WEB_SITE', $_GET['site']);
 	include '../../config.php';
 	KM::ns('lang');
 	KMlang::seti( $_GET['lang'] );
