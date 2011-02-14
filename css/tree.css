@@ -26,10 +26,15 @@ ul.tree a {
     display: block;
 }
 
+ul.tree a.no-icon
+{
+	padding-left:0px;
+}
+
 ul.tree a.hover {
     background-repeat: no-repeat;
     background-position: left top;
-	padding-left:18px;
+/*	padding-left:18px; */
 
     background-color: #BFD;
 	color: black;
@@ -38,7 +43,7 @@ ul.tree a.hover {
 ul.tree a.active {
     background-repeat: no-repeat;
     background-position: left top;
-	padding-left:18px;
+/*	padding-left:18px; */
 
     background-color: #00c000;
 	color: white;
@@ -47,7 +52,7 @@ ul.tree a.active {
 ul.tree a.active.hover {
     background-repeat: no-repeat;
     background-position: left top;
-	padding-left:18px;
+/*	padding-left:18px; */
 
     background-color: #687;
 }
@@ -75,6 +80,8 @@ ul.tree a.collapsed {
     height: 16px;
     background: url(images/collapsed.png) left top no-repeat;
     float: left;
+	padding:0px;
+	margin:0px;
 }
 
 ul.tree a.expanded {
@@ -83,6 +90,8 @@ ul.tree a.expanded {
     height: 16px;
     background: url(images/expanded.png) left top no-repeat;
     float: left;
+	padding:0px;
+	margin:0px;
 }
 
 .tree li.wait { background: url(images/spinner.gif) left top no-repeat; }
