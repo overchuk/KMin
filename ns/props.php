@@ -127,24 +127,28 @@ function edit($fid, &$ps)
 			return false;
 		}
 
-		h  = \'<div style="margin:0px;padding:0px;width:50%;float:left;background-color:#FFF0F0">\';
+		h  = \'<div style="margin:0px;padding:0px;width:50%;float:left;background-color:#F0FFF0"><div style="padding:5px;">\';
 		h += \'<input type="hidden" class="'.$fid.'__form_name" name="'.$fid.'__fname[]" value="\'+name+\'" />\';
-		h += \'<strong>\'+name+\' - \'+text+\'</strong><br>'.MSG_TITLE.': <input type="text" name="'.$fid.'__ftitle_\'+name+\'" value="" /><br>\';
-		h += \''.MSG_DESCRIPTION.': <input type="text" name="'.$fid.'__fdescr_\'+name+\'" value="" /><br>\';
-		h += \'</div><div id="'.$fid.'__param_\'+name+\'" \';
-		h += \'style="margin:0px;padding:0px;width:50%;height:100%;float:left;background-color:#F0FFF0">&nbsp;</div>\';
+		h += \'<strong>\'+name+\' - \'+text+\'</strong><br>\';
+		h += \'<table cellspacing="0" cellpadding="3" border="0" width="100%"><tr><td width="10">'.MSG_TITLE.':</td><td>\';
+		h += \' <input type="text" style="width:100%" name="'.$fid.'__ftitle_\'+name+\'" value="" /></td></tr><tr><td width="10">\';
+		h += \''.MSG_DESCRIPTION.':</td><td><input type="text" name="'.$fid.'__fdescr_\'+name+\'" value="" style="width:100%;" /></td></tr></table>\';
+		h += \'</div></div><div \';
+		h += \'style="margin:0px;padding:0px;width:50%;height:100%;float:left;">\'; 
+		h += \'<div id="'.$fid.'__param_\'+name+\'" style="padding:5px;">&nbsp;</div></div>\';
 
 		kmin.rowedit.add("'.$fid.'", h);
-	
-		$.get(kmin.def.web_root+"/task/prop/param.php?type="+type+"&prefix='.$fid.'__fp_"+name+"&lang="+kmin.def.lang, function(data){
-			var n = name;
-			$("#'.$fid.'__param_"+name).html(data);
-		});
+
+		$.get(kmin.def.web_root+"/task/prop/param.php?type="+type+"&prefix='.$fid.'__fp_"+name+"&lang="+kmin.def.lang+"&site="+kmin.def.web_site, 
+				function(data){
+					var n = name;
+					$("#'.$fid.'__param_"+name).html(data);
+				});
 	} 
 	
 ');
 
-	echo MSG_INSERT.'&nbsp;'.MSG_PROPERTY.': <input type="text" id="'.$fid.'__name" value="aa" />&nbsp;&nbsp;'.
+	echo MSG_INSERT.'&nbsp;'.MSG_PROPERTY.': <input type="text" id="'.$fid.'__name" value="" />&nbsp;&nbsp;'.
 			KMhtml::combobox('', self::types(), null, ' id="'.$fid.'__type" ').'&nbsp;';
 
 	echo '<button onclick="'.$fid.'__add(document.getElementById(\''.$fid.'__name\').value, '.
@@ -156,7 +160,7 @@ function edit($fid, &$ps)
 
 
 	echo '<form method="POST" id="'.$fid.'"><input type="hidden" name="task" value="'.$fid.'_props_edit">
-	<table id="'.$fid.'__table" width="100%" cellspacing="0" cellpadding="3" border="1"><tbody>'.LF;
+	<table id="'.$fid.'__table" width="100%" cellspacing="0" cellpadding="3" border="1"><tbody class="rowedit">'.LF;
 	echo '</tbody></table>'.LF;	
 	echo '<input type="submit" value="'.MSG_SAVE.'"></form><br>'.LF;
 
