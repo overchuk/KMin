@@ -12,11 +12,12 @@
 	KMtmpl::body_start();
 
 	$ps = array();
+	$ret = array();
 
-	if( KMprops::edit('f1', $ps) )
+	if( KMprops::edit('f1', $ps, $ret) )
 	{
 		echo '<pre>';
-		var_dump($ps);
+		var_dump($ret);
 		echo '</pre>'.LF;
 	}
 
