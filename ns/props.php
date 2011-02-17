@@ -220,8 +220,8 @@ function edit($fid, &$ps, &$ret)
 
 	$(document).ready(function(){
 	
-		kmin.rowedit.add("'.$fid.'", unescape("'.implode('"));
-		kmin.rowedit.add("'.$fid.'", unescape("',$ss).'"));	
+		kmin.rowedit.add("'.$fid.'", decodeURIComponent("'.implode('"));
+		kmin.rowedit.add("'.$fid.'", decodeURIComponent("',$ss).'"));	
 	
 	});
 	
