@@ -13,13 +13,17 @@ function types()
 	return self::$types;
 }
 
+function type($type)
+{
+	return self::$types[ $type ];
+}
 
 function load_table($tab)
 {
 	$ret = array();
 	$res = KMdb::query('SELECT * FROM `#__props` WHERE `tab`="'.KMdb::val($tab).'" ORDER BY `orde`');
 	while($r = KMdb::fetch($res))
-		$ret['name'] = array(
+		$ret[$r['name']] = array(
 				'title' => $r['title'],
 				'descr' => $r['descr'],
 				'type' => KMclass::create($r['type'], $r['data'])
@@ -138,6 +142,25 @@ function edit($fid, &$ps, &$ret)
 	KMhtml::js('kmin.rowedit');
 	KMhtml::js('kmin.validator');
 
+	$ss = array();
+	foreach($ps as $it => $p)
+	{
+		// XXX Same HTML as rowedit.js
+		// It is necessary to unificate output methods.
+	
+		$t = KMclass::obj($p['type']);
+		$ss[] = rawurlencode(str_replace("\n", ' ',
+		'<div style="margin:0px;padding:0px;width:50%;float:left;background-color:#F0FFF0"><div style="padding:5px;">
+		<input type="hidden" class="'.$fid.'__form_name" name="'.$fid.'__fname[]" value="'.$it.'" />
+		<input type="hidden" class="'.$fid.'__form_name" name="'.$fid.'__ftype_'.$it.'" value="'.$t->name().'" />
+		<strong>'.$it.' - '.self::type($t->name()).'</strong><br>
+		<table cellspacing="0" cellpadding="3" border="0" width="100%"><tr><td width="10">'.MSG_TITLE.':</td><td>
+		<input type="text" style="width:100%" name="'.$fid.'__ftitle_'.$p['it'].'" value="'.$p['title'].'" /></td></tr><tr><td width="10">
+		'.MSG_DESCRIPTION.':</td><td><input type="text" name="'.$fid.'__fdescr_'.$it.'" value="'.$p['descr'].'" style="width:100%;" /></td></tr></table>
+		</div></div><div style="margin:0px;padding:0px;width:50%;height:100%;float:left;"> 
+		<div id="'.$fid.'__param_\'+name+\'" style="padding:5px;">'.$t->admin_form($fid.'_'.$it.'_fp').'</div></div>'));
+	}
+
 	echo KMhtml::script('
 
 	function '.$fid.'__error(msg)
@@ -194,6 +217,13 @@ function edit($fid, &$ps, &$ret)
 					$("#'.$fid.'__param_"+name).html(data);
 				});
 	} 
+
+	$(document).ready(function(){
+	
+		kmin.rowedit.add("'.$fid.'", unescape("'.implode('"));
+		kmin.rowedit.add("'.$fid.'", unescape("',$ss).'"));	
+	
+	});
 	
 ');
 
