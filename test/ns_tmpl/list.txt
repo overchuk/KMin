@@ -1,0 +1,1 @@
+draw KMtmpl::draw(data, category, template)
