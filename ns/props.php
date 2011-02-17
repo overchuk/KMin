@@ -14,6 +14,40 @@ function types()
 }
 
 
+function load_table($tab)
+{
+	$ret = array();
+	$res = KMdb::query('SELECT * FROM `#__props` WHERE `tab`="'.KMdb::val($tab).'" ORDER BY `orde`');
+	while($r = KMdb::fetch($res))
+		$ret['name'] = array(
+				'title' => $r['title'],
+				'descr' => $r['descr'],
+				'type' => KMclass::create($r['type'], $r['data'])
+			);
+	return $ret;
+}
+
+function save_table($tab, &$ps)
+{
+	KMdb::query('DELETE FROM `'.KMdb::table($tab).'` WHERE `tab`="'.KMdb::val($tab).'"');
+	$ord = 0;
+	foreach($ps as $it => $p)
+	{
+		$t = KMclass::obj($p['type']);
+		$row = array(
+				'tab' => $tab,
+				'name' => $it,
+				'title' => $p['title'],
+				'descr' => $p['descr'],
+				'type' => $t->name(),
+				'data' => $t->str(),
+				'orde' => ($ord++)
+		);
+	
+		KMdb::insert($tab, KMdb::vals($row));
+	}
+}
+
 function ps2form($fid, &$ps, $row)
 {
 	KM::ns('class');
@@ -77,15 +111,29 @@ function form2value($ps, $post = null)
  and return true
 
 */
-function edit($fid, &$ps)
+function edit($fid, &$ps, &$ret)
 {
+
+	// Processing editor result
 	if($_POST['task'] == $fid.'_props_edit')
 	{
-		// XXX
-		$ps = $_POST;
+		$ret = array();
+		foreach($_POST[$fid.'__fname'] as $it)
+		{
+			// Create type, and load type parameters from POST
+			$t = KMclass::create($_POST[$fid.'__ftype_'.$it]);
+			$t->admin_load($fid.'__fp_'.$it);
+			$ret[$it] = array(
+					'title' => $_POST[$fid.'__ftitle_'.$it],
+					'descr' => $_POST[$fid.'__fdescr_'.$it],
+					'type' => $t
+				);
+		}
 		return true;
 	}
 	
+
+	// Else, run editor
 	KM::ns('html');
 	KMhtml::js('kmin.rowedit');
 	KMhtml::js('kmin.validator');
@@ -129,6 +177,7 @@ function edit($fid, &$ps)
 
 		h  = \'<div style="margin:0px;padding:0px;width:50%;float:left;background-color:#F0FFF0"><div style="padding:5px;">\';
 		h += \'<input type="hidden" class="'.$fid.'__form_name" name="'.$fid.'__fname[]" value="\'+name+\'" />\';
+		h += \'<input type="hidden" class="'.$fid.'__form_name" name="'.$fid.'__ftype_\'+name+\'" value="\'+type+\'" />\';
 		h += \'<strong>\'+name+\' - \'+text+\'</strong><br>\';
 		h += \'<table cellspacing="0" cellpadding="3" border="0" width="100%"><tr><td width="10">'.MSG_TITLE.':</td><td>\';
 		h += \' <input type="text" style="width:100%" name="'.$fid.'__ftitle_\'+name+\'" value="" /></td></tr><tr><td width="10">\';

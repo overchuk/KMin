@@ -42,4 +42,9 @@
 
     }
 
+	function str()
+	{
+		return serialize($data);
+	}
+
 ?>
