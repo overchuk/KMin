@@ -53,6 +53,11 @@ class KM_tint extends KM_type
 								
 	}
 
+	function admin_data($prefix, $post=null)
+	{
+		return self::_admin_data($prefix, array('min' => 'intval', 'max' => 'intval'), $post);
+	}
+
 }
 
 ?>

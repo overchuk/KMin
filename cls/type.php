@@ -96,6 +96,33 @@ class KM_type extends KM_
 	}
 
 
+	function admin_data($prefix, $post=null)
+	{
+		return array();
+	}
+
+	function _admin_data($prefix, $items, $post = null)
+	{
+		if(!isset($post))
+			$post = &$_POST;
+
+		$data = array();
+		foreach($items as $i => $t)
+		{
+			$v = $post[ $prefix.'_'.$i ];
+			if($v !== '')
+				$data[$i] = function_exists($t) ? $t($v) : $i;
+		}
+		return $data;
+	}
+
+	function admin_load($prefix, $post = null)
+	{
+		KM::ns('util');
+		KMutil::update($this->data, $this->admin_data($prefix, $post));
+	}
+
+
 
 
 	/*
