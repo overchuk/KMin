@@ -40,11 +40,12 @@
             }
         }
 
-    }
 
 	function str()
 	{
-		return serialize($data);
+		return serialize($this->data);
 	}
+
+}
 
 ?>
