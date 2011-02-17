@@ -29,7 +29,7 @@ function load_table($tab)
 
 function save_table($tab, &$ps)
 {
-	KMdb::query('DELETE FROM `'.KMdb::table($tab).'` WHERE `tab`="'.KMdb::val($tab).'"');
+	KMdb::query('DELETE FROM `#__props` WHERE `tab`="'.KMdb::val($tab).'"');
 	$ord = 0;
 	foreach($ps as $it => $p)
 	{
@@ -44,7 +44,7 @@ function save_table($tab, &$ps)
 				'orde' => ($ord++)
 		);
 	
-		KMdb::insert($tab, KMdb::vals($row));
+		KMdb::insert('props', KMdb::vals($row));
 	}
 }
 
