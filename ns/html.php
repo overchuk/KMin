@@ -199,7 +199,7 @@
 			if($opt)
 				$opt = " $opt";
 
-			return '<script language="'.$lang.'"'.$opt.'>'.LF.'<!--'.LF.$inner.LF.'-->'.LF.'</script>'.LF;
+			return '<script language="'.$lang.'"'.$opt.'>'.LF.$inner.LF.'</script>'.LF;
 		}
 
         function table($pad, $space, $border, $width=null, $opt=null)
@@ -595,7 +595,7 @@
         }        
 
 
-		function help($id, $help, $ops)
+		function help($id, $help, $ops, $inner=false)
 		{
 			if(!is_array($ops))
 			{
@@ -614,13 +614,24 @@
 						);
 			foreach($ops as $n => $v)
 				$t[] = "$n: $v";
-	
+
+			// Direct cluetip instead of document.ready()
+			if($inner)
+			{
+				$before = '';
+				$after = '';
+			}	
+			else
+			{
+				$before = '$(document).ready(function(){ ';
+				$after = ' });';
+			}
 
 			self::js('jq.tip');
 			return  '<a id="'.$id.'" href="#" rel="'.WEB_TASK.'/help.php?help='.urlencode($help).'"
 						title="'.MSG_HELP.'">'.
 						'<img src="'.WEB_ICON.'/question.png" width="16"></a>'.
-						self::script('$(document).ready(function(){ $("#'.$id.'").cluetip({'.implode(', ', $t).'}); });');
+						self::script($before.'$("#'.$id.'").cluetip({'.implode(', ', $t).'});'.$after);
 		}
 
         // =====================================================================

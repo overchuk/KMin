@@ -11,6 +11,7 @@
                             'pager' => WEB_CSS.SL.'pager.css',
 							're' => WEB_CSS.SL.'re.css',
 							'tree' => WEB_CSS.'/tree.css',
+							'rowedit' => WEB_CSS.'/rowedit.css',
                             'admin' => WEB_ADMIN.'/css/style.css',
 							'style' => WEB_SITE.'/css/style.css',
                         );

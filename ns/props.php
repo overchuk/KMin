@@ -139,6 +139,7 @@ function edit($fid, &$ps, &$ret)
 
 	// Else, run editor
 	KM::ns('html');
+	KMhtml::css('rowedit');
 	KMhtml::js('kmin.rowedit');
 	KMhtml::js('kmin.validator');
 
@@ -150,15 +151,15 @@ function edit($fid, &$ps, &$ret)
 	
 		$t = KMclass::obj($p['type']);
 		$ss[] = rawurlencode(str_replace("\n", ' ',
-		'<div style="margin:0px;padding:0px;width:50%;float:left;background-color:#F0FFF0"><div style="padding:5px;">
+		'<div class="rwe-left"><div>
 		<input type="hidden" class="'.$fid.'__form_name" name="'.$fid.'__fname[]" value="'.$it.'" />
 		<input type="hidden" class="'.$fid.'__form_name" name="'.$fid.'__ftype_'.$it.'" value="'.$t->name().'" />
 		<strong>'.$it.' - '.self::type($t->name()).'</strong><br>
-		<table cellspacing="0" cellpadding="3" border="0" width="100%"><tr><td width="10">'.MSG_TITLE.':</td><td>
-		<input type="text" style="width:100%" name="'.$fid.'__ftitle_'.$p['it'].'" value="'.$p['title'].'" /></td></tr><tr><td width="10">
+		<table class="rwe-tabin" cellspacing="0" cellpadding="3" border="0" width="100%"><tr><td width="10">'.MSG_TITLE.':</td><td>
+		<input type="text" style="width:100%" name="'.$fid.'__ftitle_'.$it.'" value="'.$p['title'].'" /></td></tr><tr><td width="10">
 		'.MSG_DESCRIPTION.':</td><td><input type="text" name="'.$fid.'__fdescr_'.$it.'" value="'.$p['descr'].'" style="width:100%;" /></td></tr></table>
-		</div></div><div style="margin:0px;padding:0px;width:50%;height:100%;float:left;"> 
-		<div id="'.$fid.'__param_\'+name+\'" style="padding:5px;">'.$t->admin_form($fid.'_'.$it.'_fp').'</div></div>'));
+		</div></div><div class="rwe-right"> 
+		<div id="'.$fid.'__param_'.$it.'">'.$t->admin_form($fid.'_'.$it.'_fp', true).'</div></div>'));
 	}
 
 	echo KMhtml::script('
@@ -198,16 +199,16 @@ function edit($fid, &$ps, &$ret)
 			return false;
 		}
 
-		h  = \'<div style="margin:0px;padding:0px;width:50%;float:left;background-color:#F0FFF0"><div style="padding:5px;">\';
+		h  = \'<div class="rwe-left"><div>\';
 		h += \'<input type="hidden" class="'.$fid.'__form_name" name="'.$fid.'__fname[]" value="\'+name+\'" />\';
 		h += \'<input type="hidden" class="'.$fid.'__form_name" name="'.$fid.'__ftype_\'+name+\'" value="\'+type+\'" />\';
 		h += \'<strong>\'+name+\' - \'+text+\'</strong><br>\';
-		h += \'<table cellspacing="0" cellpadding="3" border="0" width="100%"><tr><td width="10">'.MSG_TITLE.':</td><td>\';
+		h += \'<table class="rwe-tabin" cellspacing="0" cellpadding="3" border="0" width="100%"><tr><td width="10">'.MSG_TITLE.':</td><td>\';
 		h += \' <input type="text" style="width:100%" name="'.$fid.'__ftitle_\'+name+\'" value="" /></td></tr><tr><td width="10">\';
 		h += \''.MSG_DESCRIPTION.':</td><td><input type="text" name="'.$fid.'__fdescr_\'+name+\'" value="" style="width:100%;" /></td></tr></table>\';
 		h += \'</div></div><div \';
-		h += \'style="margin:0px;padding:0px;width:50%;height:100%;float:left;">\'; 
-		h += \'<div id="'.$fid.'__param_\'+name+\'" style="padding:5px;">&nbsp;</div></div>\';
+		h += \'class="rwe-right">\'; 
+		h += \'<div id="'.$fid.'__param_\'+name+\'">&nbsp;</div></div>\';
 
 		kmin.rowedit.add("'.$fid.'", h);
 

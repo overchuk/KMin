@@ -33,11 +33,12 @@ kmin.rowedit.fill = function(id,sz){
 kmin.rowedit.add=function(id,html){
 	var sz = kmin.rowedit.size(id);
 
-	$('<tr class="rowedit" id="'+id+'__row_'+sz+'"><td width="*" id="'+id+'__cell_'+sz+'"><div class="'+id+'__box">'
-			+html+'</td><td width="64" id="'+id+'__bar_'+sz+'"></div></td></tr>' ).appendTo('#'+id+'__table tbody.rowedit');
+	$('<tr class="rowedit" id="'+id+'__row_'+sz+'"><td width="*" id="'+id+'__cell_'+sz+'"><div id="'+id+'__box_'+sz+'" class="'+id+'__box">'
+			+'</div></td><td width="64" id="'+id+'__bar_'+sz+'"></div></td></tr>' ).appendTo('#'+id+'__table tbody.rowedit');
+
+	kmin.sys.draw(id+'__box_'+sz,html);
 
 	sz++;
-
 	kmin.rowedit.fill(id,sz);
 	return sz;
 }

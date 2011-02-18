@@ -43,11 +43,11 @@ class KM_tint extends KM_type
 		return true;
 	}
 
-	function admin_form($prefix)
+	function admin_form($prefix, $inner = false)
 	{
 		KM::ns('html');
 
-		return KMhtml::help($prefix.'__help','types/int',600).'<br />'.
+		return KMhtml::help($prefix.'__help','types/int',600, $inner).'<br />'.
 				MSG_MIN.': <input type="text" size="6" name="'.$prefix.'_min" value="'.$this->data['min'].'" /><br />'.
 				MSG_MAX.': <input type="text" size="6" name="'.$prefix.'_max" value="'.$this->data['max'].'" />';
 								

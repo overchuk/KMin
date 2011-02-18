@@ -1,0 +1,39 @@
+
+.rowedit div.rwe-left
+{
+	margin:0px;
+	padding:0px;
+	width:50%;
+	float:left;
+	background-color:#F0FFF0;
+}
+
+.rowedit div.rwe-left div
+{
+	padding:5px;
+}
+
+
+.rowedit div.rwe-right
+{
+	margin:0px;
+	padding:0px;
+	width:50%;
+	height:100%;
+	float:left;
+}
+
+.rowedit div.rwe-right div
+{
+	padding:5px;
+}
+
+
+
+/* Table : title + description */
+.rowedit table.rwe-tabin
+{
+
+}
+
+
