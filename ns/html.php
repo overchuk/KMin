@@ -155,7 +155,7 @@
 				$win = 'top.self.window';
 
 			echo '<script>
-					'.$win.'.location = "'.urlencode($url).'";
+					'.$win.'.location = "'.$url.'";
 				</script>'.LF;
 		}
 
