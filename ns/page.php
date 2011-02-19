@@ -63,14 +63,19 @@ class KMpage
 	Get page by id.
 	If page in cache, use it, otherwise read DB and store page in cache
 */
-	function get($id)
+	function get($id, $alarm = true)
 	{
 		if(!isset(self::$_pages[ $id ]))
 		{
 			if($p = KMdb::get('pages', $id))
 				self::$_pages[ $id ] = $p;
 			else
-				KMlog::alarm('Pages', "Page [$id] not found.");
+			{
+				if($alarm)
+					KMlog::alarm('Pages', "Page [$id] not found.");
+				else
+					return false;
+			}
 		}
 
 		return self::$_pages[ $id ];
@@ -159,6 +164,11 @@ class KMpage
 		}
 	}
 
+
+	function nsub($page)
+	{
+		return intval( ($page['rid'] - $page['lid'])/2 );
+	}
 
 /*
 	Load all root elementa (all sites)
