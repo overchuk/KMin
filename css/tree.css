@@ -24,6 +24,7 @@ ul.tree a {
 
     color: #333;
     display: block;
+	text-decoration:none;
 }
 
 ul.tree a.no-icon
@@ -94,5 +95,5 @@ ul.tree a.expanded {
 	margin:0px;
 }
 
-.tree li.wait { background: url(images/spinner.gif) left top no-repeat; }
+ul.tree li.wait { background: url(images/spinner.gif) left top no-repeat; padding-left:20px;}
 
