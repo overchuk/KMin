@@ -20,8 +20,6 @@ class KMtree
 		$n = intval($rid - $lid +1);
 		KMdb::query(KMdb::sql('UPDATE `'.KMdb::table($table).'` SET `lid`=`lid`-'.$n.' WHERE `lid` > '.$rid));
 		KMdb::query(KMdb::sql('UPDATE `'.KMdb::table($table).'` SET `rid`=`rid`-'.$n.' WHERE `rid` > '.$rid));
-		self::cache_clear();
-
 	}
 
 	// How many from lid to rid
