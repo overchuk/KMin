@@ -165,6 +165,36 @@ class KMpage
 	}
 
 
+/*
+	XPath notation, for js/tree.js 
+	i<id0>/i<id1>/...
+	$id can be ID or ROW (array)
+*/
+	function xpath($id)
+	{
+		if(!is_array($id))
+		{
+			$id = self::get($id);
+			if(!is_array($id))
+				return '';
+		}
+
+		$lid = intval($id['lid']);
+		$rid = intval($id['rid']);
+		$id = intval($id['id']);
+
+		$ret = array();
+		$res = KMdb::query('SELECT `id` FROM `#__pages` WHERE `lid`<='.intval($lid).' AND `rid`>='.$rid.' ORDER BY `lid`');
+		while($r = KMdb::fetch($res))
+			$ret[] = 'i'.$r['id'];
+
+		return implode('/', $ret);
+	}
+
+
+/*
+	Quick number of subpages
+*/
 	function nsub($page)
 	{
 		return intval( ($page['rid'] - $page['lid'])/2 );
@@ -221,6 +251,7 @@ class KMpage
 		$row['pid'] = $pid;
 		$row['id']  = KMtree::insert('pages', $row);
 		KMhook::hook('page:insert', $row);	
+		return $row['id'];
 	}
 
 
@@ -240,12 +271,21 @@ class KMpage
 */
 	function remove($id)
 	{
-		// XXX
 		$row = self::get($id);
 		if(!$row)
 			return false;
 
-		KMhook::hook('page:remove', $row);
+		KM::ns('tree');
+		KM::ns('hook');
+
+		$ids = array($row['id']);
+		$res = KMdb::query('SELECT `id` FROM `#__pages` WHERE `lid`>'.$row['lid'].' AND `rid`<'.$row['rid']);
+		while($r = KMdb::fetch($res))	
+			$ids[] = $r['id'];
+		KMhook::hook('page:remove', $ids);
+
+		KMdb::query('DELETE FROM `#__pages` WHERE `lid`>='.$row['lid'].' AND `rid`<='.$row['rid']);
+		KMtree::_hlop('pages', $row['lid'], $row['rid']);
 	}
 
 
