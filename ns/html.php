@@ -147,17 +147,44 @@
 
 		}
 
-		function frame_go($url, $frame = null)
+		function frame_go($url, $frame = null, $part='')
 		{
 			if($frame)
-				$win = 'top.self.window.frames['.intval($frame).']';
+				$win = 'top.self.window.frames["'.$frame.'"].contentDocument';
 			else
 				$win = 'top.self.window';
 
+			if($part)
+				$part = ".$part";
+
 			echo '<script>
-					'.$win.'.location = "'.$url.'";
+					'.$win.'.location'.$part.' = "'.$url.'";
 				</script>'.LF;
 		}
+
+		function frame_hash($hash, $frame)
+		{
+			echo '<script>
+					var d = top.self.window.frames["'.$frame.'"].contentDocument;
+					var n = d.location.href.indexOf("#");
+					var s = n==-1?d.locaction.href:d.location.href.slice(0,n);
+					alert(s);
+					d.location.href = s+"#'.$hash.'";
+				</script>'.LF;
+		}
+
+		function frame_reload($hash, $frame)
+		{
+			echo '<script>
+					var d = top.self.window.frames["'.$frame.'"].contentDocument;
+					var n = d.location.href.indexOf("#");
+					var s = n==-1?d.locaction.href:d.location.href.slice(0,n);
+					s += "#'.$hash.'";
+					d.location = s;
+					d.location.reload(s);
+				</script>'.LF;
+		}
+		
 
 
         // Transform ===================================================================
