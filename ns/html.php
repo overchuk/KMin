@@ -150,7 +150,7 @@
 		function frame_go($url, $frame = null, $part='')
 		{
 			if($frame)
-				$win = 'top.self.window.frames["'.$frame.'"].contentDocument';
+				$win = 'top.self.window.frames["'.$frame.'"]';
 			else
 				$win = 'top.self.window';
 
@@ -168,18 +168,22 @@
 					var d = top.self.window.frames["'.$frame.'"].contentDocument;
 					var n = d.location.href.indexOf("#");
 					var s = n==-1?d.locaction.href:d.location.href.slice(0,n);
-					alert(s);
 					d.location.href = s+"#'.$hash.'";
 				</script>'.LF;
 		}
 
 		function frame_reload($hash, $frame)
 		{
-			echo '<script>
-					var d = top.self.window.frames["'.$frame.'"].contentDocument;
+			echo '<script type="text/javascript">
+					var f = top.self.window.frames["'.$frame.'"];
+					var d = f.contentDocument;
+					if(!d) d = f.document;
+					if(!d) d = f.contentWindow.document;
+					alert(d);
 					var n = d.location.href.indexOf("#");
 					var s = n==-1?d.locaction.href:d.location.href.slice(0,n);
 					s += "#'.$hash.'";
+					alert(s);
 					d.location = s;
 					d.location.reload(s);
 				</script>'.LF;

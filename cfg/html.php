@@ -30,6 +30,8 @@
 						'jq.hover' => WEB_JS.SL.'jq.hover.js',
 						'jq.tip'	=> WEB_JS.SL.'jq.tip.js',
 						'jq.tree'   => WEB_JS.SL.'jq.tree.js',
+						'jq.addr'  => WEB_JS.SL.'jq.addr.js',
+						'jq.history'  => WEB_JS.SL.'jq.history.js',
 
                         'kmin' => WEB_JS.SL.'kmin.js',
                         'kmin.re' => WEB_JS.SL.'kmin.re.js',
@@ -51,6 +53,8 @@
 					'jq.hover' => array('jquery'),
 					'jq.bigframe' => array('jquery'),
 					'jq.tree' => array('jquery'),
+					'jq.addr' => array('jquery'),
+					'jq.history' => array('jquery'),
                     'kmin' => array('jquery'),
                     'kmin.re' => array('kmin'),
                     'kmin.def' => array('kmin'),
