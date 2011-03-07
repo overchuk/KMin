@@ -11,22 +11,53 @@ class KMpage
 	// Cache of sites. SiteId by host 
 	static $_sites = array();
 
-	// Cache of loaded path chain of pages
+	// Cache of loaded path: chain of pages
 	static $_path = array();
 
 	// Property of page	
 	static $_props  = array();
 
 
-	
-	function get_prop($name)
+	function id()
 	{
-		return self::$_props[$name];
+		if(!($c = count(self::$_path)))
+			return 0;
+		return self::$_path[$c-1]['id'];
+	}	
+
+
+	// Load set of properties from additional table
+	function load_set($set, $table=null)
+	{
+		if($table == null)
+			$table = $set;
+
+		self::$_props['_'.$set] = KMdb::getw($table, '`pid`='.self::id());
+	}
+	
+	function get_prop($name, $set="")
+	{
+		if($set)
+			return self::$_props[$set][$name];
+		else
+			return self::$_props[$name];
 	}
 
-	function set_prop($name, $value)
+	function set_prop($name, $value, $set='')
 	{
-		self::$_props[$name] = $value;
+		if($set)
+			self::$_props[$set][$name] = $value;
+		else
+			self::$_props[$name] = $value;
+	}
+
+	function _($name)
+	{
+		list($s,$n) = explode('.', $name, 2);
+		if($n)
+			return self::$_props['_'.$s][$n];
+		else
+			return self::$_props[$s];
 	}
 
 	function title()
@@ -46,7 +77,8 @@ class KMpage
 
 	function content()
 	{
-		return self::get_prop('content');
+		// XXX
+		echo '<div style="width:100%; border:3px solid red;text-align:center;"><br><br>CONTENT<br><br></div>';
 	}
 
 
@@ -84,7 +116,7 @@ class KMpage
 
 
 /*
-	Get site Id (id of site's main page) by host (default current HTTP host without www.)
+	Get site row (row of site's main page) by host (default current HTTP host without www.)
 	if alarm is true, raise alarm when site not found
 */
 	function sid($host = null, $alarm = true)
@@ -96,7 +128,11 @@ class KMpage
 		{
 			$s = KMdb::getw('pages', '(`pid` = 0) AND (`url` LIKE "%|'.KMdb::val($host).'|%")');
 			if($s)
+			{
+				// URL used as HTTP HOST for pid=0. Origin url is ''
+				$s['url'] = '';
 				self::$_sites[ $host ] = $s;
+			}
 			elseif($alarm)
 				KMlog::alarm('pages', 'Site ['.$host.'] not found');
 		}
@@ -110,8 +146,11 @@ class KMpage
 */
 	function sub($pid, $url, $alarm = true)
 	{
+		echo KMdb::sql('SELECT * FROM `#__pages` WHERE (`pid`='.intval($pid).') 
+								AND (`url`="'.KMdb::val($url).'") AND '.self::where().' LIMIT 0,1');
+
 		$res = KMdb::query('SELECT * FROM `#__pages` WHERE (`pid`='.intval($pid).') 
-								AND (`url`="'.KMdb::val($url).'") AND '.KMdb::where().' LIMIT 0,1');
+								AND (`url`="'.KMdb::val($url).'") AND '.self::where().' LIMIT 0,1');
 
 		if(! ($r = KMdb::fetch($res)))
 		{
@@ -126,23 +165,45 @@ class KMpage
 	}
 
 
+
+/*
+	Clear loaded path (page chain)
+*/	
+	function _clear()
+	{
+		self::$_path = array();
+		KMhook::hook('page:clear');
+	}
+
+
+/*
+	Added page $row to path
+	Standard way: Added to path, raise page:load
+*/
+	function _cd($row)
+	{
+		self::$_path[] = $r;
+		KMhook::hook('page:load', $r);
+	}
+
 /*
 	Load page chain, by  URL
 	Fill $_path cache
 	raise "page:load" by each loaded page
-	calculate properties by each page
 */
-
-	function load($url, $sid = null)
+	function load($url=null, $sid = null)
 	{
 		if(!$sid)
 			$sid = self::sid();
+		if(!$url)
+			$url = strtolower( $_SERVER['REQUEST_URI'] );
 
-		self::$_path = array( $sid );
+		// First step 
+		self::_clear();
+		self::_cd($sid);
 
-		$r = self::get($sid);
-		if(!is_array($p))
-			KMlog::alarm('page', "Site [$sid] not found");
+		// Initial hack
+		$pid = $sid['id'];
 
 		$us = explode('/', $url);
 		foreach($us as $u)
@@ -151,17 +212,41 @@ class KMpage
 			if(!$u)
 				continue;
 			
-			$r = self::sub($r['id'], $u, false);
+			$r = self::sub($pid, $u, false);
 			if(!$r)
 				KMhttp::error('404');
-
-			KMhook::hook('page:load', $r);
-			if(KMmodule::is_last($r['type']))
-			{
-				KMmodule::load($r);
-				break;
-			}
+			
+			self::_cd($r);
+			$pid = $r['id'];
 		}
+	}
+
+
+/*
+	Load page by ID (or row)
+	Fill path as full way to $p
+	if $p is array - it is row, id otherwise.
+*/
+	function load_byid($p, $alarm = true)
+	{
+		if(!is_array($p))
+			$p = KMdb::get('pages', intval($p));
+
+		if(!is_array($p))
+		{
+			if($alarm)
+			{
+				KM::ns('log');
+				KMlog::alarm('page', 'Load page ['.intval($p).'] failed.', array($p));
+			}
+			
+			return false;
+		}
+
+		
+		self::_clear();
+		$res = KMtree::path('pages', $p);
+		
 	}
 
 
