@@ -44,7 +44,8 @@ function create($cls, $data = null)
     return $ret;
 }
 
-function obj($in)
+// Standard 
+function obj(&$in, $store = false, $inplace=false)
 {
     if(is_object($in))
         return $in;
@@ -52,7 +53,15 @@ function obj($in)
     if(is_object($in['obj']))
         return $in['obj'];
 
-    return self::create($in['class'], $in['data']);
+    $obj = self::create($in['class'], $in['data']);
+    if($store)
+    {
+        if($inplace)
+            $in = $obj;
+        else
+            $in['obj'] = $obj;
+    }
+    return $obj;
 }
 
 function unobj($in)
