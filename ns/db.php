@@ -82,10 +82,8 @@ class KMdb
 		return str_replace($tmpl, self::$prefix, $q);
 	}
 
-	
-	function query($q, $alarm = TRUE)
+	function sql_query($q, $alarm = TRUE)
 	{
-		$q = self::sql($q);
 		$res = mysql_query($q);
 		if((!$res) AND $alarm)
 		{
@@ -93,6 +91,11 @@ class KMdb
 			KMlog::alarm('SQL', $q.' : '.$error);
 		}
 		return $res;
+	}
+
+	function query($q, $alarm = TRUE)
+	{
+		return self::sql_query( self::sql($q), $alarm );
 	}
 
 	function fetch($res)
