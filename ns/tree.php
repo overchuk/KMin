@@ -53,6 +53,12 @@ class KMtree
 		return $ret;
 	}
 
+	// Query parent-path to child
+	function query_path($table, $row)
+	{
+		return KMdb::sql_query('SELECT * FROM `'.KMdb::table($table).'` WHERE `lid`<'.intval($row['lid']).' AND `rid`>'.intval($row['rid']).' ORDER BY `lid`');
+	}
+
 
 	// Calculate number of sub pages
 	function subcount($table, $id)
