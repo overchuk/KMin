@@ -3,6 +3,7 @@
 KM::ns('page');
 KM::ns('param');
 
+/*
 function _b($name, $param=0)
 {
 	echo KMpage::block($name, $param);
@@ -22,7 +23,7 @@ function _p($name)
 {
 	echo KMpage::get_prop( $name );
 }
-
+*/
 
 
 class KMtmpl
@@ -90,7 +91,7 @@ class KMtmpl
         return self::body_start($s);
     }
 
-    function body_end($category='', $template='default')
+    function body_end($template='default', $category='')
     {
         echo LF.'</body>';
         $body = ob_get_contents();
