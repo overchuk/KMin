@@ -32,6 +32,7 @@
 						'jq.tree'   => WEB_JS.SL.'jq.tree.js',
 						'jq.addr'  => WEB_JS.SL.'jq.addr.js',
 						'jq.history'  => WEB_JS.SL.'jq.history.js',
+						'jq.cycle'  => WEB_JS.SL.'jq.cycle.js',
 
                         'kmin' => WEB_JS.SL.'kmin.js',
                         'kmin.re' => WEB_JS.SL.'kmin.re.js',
