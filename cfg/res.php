@@ -7,6 +7,13 @@
                                 ),
                         ),
 
+        'add.text' => array(
+                            'class' => 'r_text',
+                            'data' => array(
+                                        'type' => 1;
+                                ),
+                        ),
+
         'photogal' => array(
                             'class' => 'r_photos',
                             'data' => array(
