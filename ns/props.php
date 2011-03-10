@@ -31,6 +31,53 @@ function load_table($tab)
 	return $ret;
 }
 
+function sql_table(&$ps)
+{
+    KM::ns('class');
+
+    $ret = array();
+    foreach($ps as $name => &$p)
+    {
+        $t = KMclass::obj($p['type'],true,true);
+        $t->sql($name, $ret);
+    }
+
+    return $ret;
+}
+
+function alter_table($tab, $p1, $p2)
+{
+    $chg = array();
+    $add = array();
+
+    $old = self::sql_table($p1);
+    $new = self::sql_table($p2);
+
+    foreach($new as $n => $v)
+    {
+        if(isset($old[$n]))
+        {
+            if($old[$n] != $v)
+                $chg[$n] = $v;
+
+            unset($old[$n]);
+        }
+        else
+            $add[$n] = $v;
+    }
+
+    $t = KMdb::table($tab);
+    foreach($old as $n => $v)
+        KMdb::sql_query('ALTER TABLE `'.$t.'` DROP `'.$n.'`');
+
+    foreach($chg as $n => $v)
+        KMdb::sql_query('ALTER TABLE `'.$t.'` CHANGE `'.$n.'` `'.$n.'` '.$v);
+
+    foreach($add as $n => $v)
+        KMdb::sql_query('ALTER TABLE `'.$t.'` ADD `'.$n.'` '.$v);
+
+}
+
 function save_table($tab, &$ps)
 {
 	KMdb::query('DELETE FROM `#__props` WHERE `tab`="'.KMdb::val($tab).'"');
