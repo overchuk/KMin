@@ -59,6 +59,23 @@ class KM_tstring extends KM_type
 				
 	}
 
+    function admin_data($prefix, $post=null)
+    {
+        return self::_admin_data($prefix, array('min' => 'intval', 'max' => 'intval', 'mask' => ''), $post);
+    }
+
+
+    function sql($name, &$cs)
+    {
+        $m = intval($this->data['max']);
+        if(($m >0) && ($m < 255))
+            $cs[$name] = 'VARCHAR('.$m.') CHARACTER SET utf8 NOT NULL';
+        else
+            $cs[$name] = 'TEXT CHARACTER SET utf8 NOT NULL';
+
+        return true;
+    }
+
 }
 
 ?>
