@@ -49,7 +49,7 @@
                     'spoller' => array('jquery'),
                     'date' => array('jquery'),
                     'table' => array('jquery'),
-					'lightbox' => array('jquery', 'kmin.const'),
+					'lightbox' => array('jquery', 'kmin.def'),
 					'jq.tip' => array('jquery', 'jq.hover', 'jq.bigframe'),
 					'jq.hover' => array('jquery'),
 					'jq.bigframe' => array('jquery'),
