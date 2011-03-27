@@ -129,6 +129,15 @@ class KM_type extends KM_
 		============ SQL side
 	*/
 
+    /*
+        Get array(sql_column_id => sql_column_type)
+        needed to store values
+    */
+    function sql($name, &$cs)
+    {
+        return true;
+    }
+
 }
 
 ?>

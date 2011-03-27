@@ -58,6 +58,12 @@ class KM_tint extends KM_type
 		return self::_admin_data($prefix, array('min' => 'intval', 'max' => 'intval'), $post);
 	}
 
+    function sql($name, &$cs)
+    {
+        $cs[$name] = 'INT(11) NOT NULL';
+        return true;
+    }
+
 }
 
 ?>

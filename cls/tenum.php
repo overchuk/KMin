@@ -48,6 +48,12 @@ class KM_tenum extends KM_type
 								
 	}
 
+    function sql($name, &$cs)
+    {
+        $cs[$name] = 'TINYINT(1) NOT NULL';
+        return true;
+    }
+
 
 }
 
