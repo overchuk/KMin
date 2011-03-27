@@ -31,6 +31,8 @@ class KMtmpl
 	static $_templates;
 	static $_revers     = null;
 
+    static $_body = '';
+
 	function _reverse()
 	{
 		if(!isset($_revers))
@@ -94,7 +96,7 @@ class KMtmpl
     function body_end($template='default', $category='')
     {
         echo LF.'</body>';
-        $body = ob_get_contents();
+        self::$_body = ob_get_contents();
         ob_end_clean();
 
         if($category)

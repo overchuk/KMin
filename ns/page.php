@@ -5,7 +5,7 @@ KM::ns('log');
 
 class KMpage
 {
-	// Cache of pages. Site row by id
+	// Cache of pages. Page row by id
 	static $_pages = array();
 
 	// Cache of sites. SiteId by host 
@@ -17,6 +17,8 @@ class KMpage
 	// Property of page	
 	static $_props  = array();
 
+    // Additional properties from module page
+    static $_add = array();
 
 	function id()
 	{
