@@ -3,6 +3,14 @@
 class KMutil
 {
 
+// Is $name can be identifier. (lat letters and numbers)
+function isid($name)
+{
+    return preg_match('/^[a-z]+[a-z0-9_]*$/', $name);
+}
+
+
+// Parse command line, like URL GET request
 function cmdline($input)
 {
     $ret = array();
@@ -16,6 +24,7 @@ function cmdline($input)
     return $ret;
 }
 
+// Update arrat $one by $two. 
 function update(&$one, &$two)
 {
     if(!is_array($two))
@@ -28,6 +37,8 @@ function update(&$one, &$two)
             $one[$n] = $v;
 }
 
+
+// Find  url in arrat $items that located near $url.
 function suburl($url, $items)
 {
     $ret = '';
@@ -41,6 +52,9 @@ function suburl($url, $items)
     return $ret;
 }
 
+// Generate uniq hex string. 
+// Default length is $n=32
+// if length > 31, $use_time - flag, to use time_t as part of string
 function uniq($n = 32, $use_time = true)
 {
     $hex = array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'a', 'b', 'c', 'd', 'e', 'f');
@@ -59,6 +73,7 @@ function uniq($n = 32, $use_time = true)
     return $ret;
 }
 
+// Get number with leading zero. Default length $l=6
 function num($n, $l=6)
 {
     $s = ''.intval($n).'';
@@ -67,6 +82,8 @@ function num($n, $l=6)
     return $s;
 }
 
+
+// Fill %param% in $mask by values of array $row
 function format($mask, $row)
 {
     $ar = explode('%', $mask);
@@ -88,6 +105,7 @@ function format($mask, $row)
     return $ret;
 }
 
+// Parse mysql date, to array
 function dat($d)
 {
 	list($year, $month, $day) = explode('-', $d);
