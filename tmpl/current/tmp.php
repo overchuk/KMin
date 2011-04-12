@@ -1,4 +1,8 @@
 <?
+    global $title;
+    global $description;
+    global $keywords;
+
     KM::ns('tmpl');
     KM::ns('html');
 	header("content-type: text/html; charset=utf-8");
