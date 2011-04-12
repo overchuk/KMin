@@ -626,6 +626,9 @@
         }        
 
 
+        // $id - html id prefix
+        // $help - help id, relative path in kmin/docs/help/{lang}/ directory
+        // $ops - ...
 		function help($id, $help, $ops, $inner=false)
 		{
 			if(!is_array($ops))
